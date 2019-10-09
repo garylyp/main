@@ -34,10 +34,4 @@ public class UndoCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventToUndo));
     }
 
-//    @Override
-//    public boolean equals(Object other) {
-//        return other == this // short circuit if same object
-//                || (other instanceof UndoCommand // instanceof handles nulls
-//                && actionToUndo.equals(((UndoCommand) other).actionToUndo));
-//    }
 }

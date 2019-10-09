@@ -32,10 +32,4 @@ public class RedoCommand extends Command {
                 String.format(MESSAGE_SUCCESS, eventToRedo));
     }
 
-//    @Override
-//    public boolean equals(Object other) {
-//        return other == this // short circuit if same object
-//                || (other instanceof RedoCommand // instanceof handles nulls
-//                && eventToRedo.equals(((RedoCommand) other).eventToRedo));
-//    }
 }

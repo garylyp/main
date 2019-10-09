@@ -1,7 +1,5 @@
 package seedu.exercise.logic.commands.history;
 
-import java.util.concurrent.CompletionException;
-
 import seedu.exercise.logic.commands.AddCommand;
 import seedu.exercise.logic.commands.DeleteCommand;
 import seedu.exercise.logic.commands.UndoableCommand;
