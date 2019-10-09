@@ -1,50 +1,88 @@
 package seedu.exercise.logic.commands.history;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Stack;
 
-import seedu.exercise.logic.commands.Command;
 import seedu.exercise.logic.commands.UndoableCommand;
 
 /**
- * Tracks the history of commands for undo and redo.
+ * A singleton class that tracks a single history of undoable events.
  */
-public class ActionHistory {
+public class EventHistory {
 
-    private static Stack<Action> undoStack;
-    private static Stack<Action> redoStack;
+    private static Stack<Event> undoStack;
+    private static Stack<Event> redoStack;
 
-    private ActionHistory() {
+    /**
+     * Initializes both undo and redo history if no undo history exists.
+     */
+    private EventHistory() {
         if (undoStack == null) {
             undoStack = new Stack<>();
             redoStack = new Stack<>();
         }
     }
 
-    public static ActionHistory getInstance() {
-        return new ActionHistory();
+    /**
+     * Returns an EventHistory object that tracks the history of undoable events.
+     *
+     * @return an instance of EventHistory that can be used to access the undo and redo history.
+     */
+    public static EventHistory getInstance() {
+        return new EventHistory();
     }
 
-    public void addToRedoStack(UndoableCommand command) {
-        undoStack.add(new Action(command));
+    /**
+     * Stores a command as an event in the EventHistory.
+     *
+     * @param command an undoable command to be stored in history
+     */
+    public void addCommandToUndoStack(UndoableCommand command) {
+        Event event = EventFactory.commandToEvent(command);
+        requireNonNull(event);
+        undoStack.add(event);
         redoStack.clear();
     }
 
-    public Action popUndoStack() {
-        Action actionToUndo = undoStack.pop();
+    /**
+     * Returns the next event to undo.
+     *
+     * @return undoable event
+     */
+    public Event undo() {
+        assert(!undoStack.isEmpty());
+        Event actionToUndo = undoStack.pop();
         redoStack.push(actionToUndo);
         return actionToUndo;
     }
 
-    public Action popRedoStack() {
-        Action actionToRedo = redoStack.pop();
+    /**
+     * Returns the next event to redo.
+     *
+     * @return undoable event
+     */
+    public Event redo() {
+        assert(!redoStack.isEmpty());
+        Event actionToRedo = redoStack.pop();
         undoStack.push(actionToRedo);
         return actionToRedo;
     }
 
+    /**
+     * Checks if the undo history is empty.
+     *
+     * @return true if undo stack is empty, false otherwise
+     */
     public boolean isUndoStackEmpty() {
         return undoStack.isEmpty();
     }
 
+    /**
+     * Checks if the redo history is empty.
+     *
+     * @return true if redo stack is empty, false otherwise
+     */
     public boolean isRedoStackEmpty() {
         return redoStack.isEmpty();
     }

@@ -9,13 +9,14 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
 
 import seedu.exercise.logic.commands.exceptions.CommandException;
+import seedu.exercise.logic.commands.history.EventHistory;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.exercise.Exercise;
 
 /**
  * Adds an exercise to the exercise book.
  */
-public class AddCommand extends Command {
+public class AddCommand extends Command implements UndoableCommand {
 
     public static final String COMMAND_WORD = "add";
 
@@ -41,11 +42,20 @@ public class AddCommand extends Command {
     private final Exercise toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Exercise}
      */
     public AddCommand(Exercise exercise) {
         requireNonNull(exercise);
         toAdd = exercise;
+    }
+
+    /**
+     * Returns the exercise to be added to the Exercise Book.
+     *
+     * @return exercise that is passed into constructor of AddCommand
+     */
+    public Exercise getExercise() {
+        return toAdd;
     }
 
     @Override
@@ -57,6 +67,7 @@ public class AddCommand extends Command {
         }
 
         model.addExercise(toAdd);
+        EventHistory.getInstance().addCommandToUndoStack(this);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

@@ -7,13 +7,14 @@ import java.util.List;
 import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.commands.exceptions.CommandException;
+import seedu.exercise.logic.commands.history.EventHistory;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.exercise.Exercise;
 
 /**
  * Deletes a exercise identified using it's displayed index from the exercise book.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends Command implements UndoableCommand {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -25,6 +26,7 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_EXERCISE_SUCCESS = "Deleted Exercise: %1$s";
 
     private final Index targetIndex;
+    private Exercise exerciseToDelete;
 
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
@@ -39,9 +41,19 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
         }
 
-        Exercise exerciseToDelete = lastShownList.get(targetIndex.getZeroBased());
+        exerciseToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteExercise(exerciseToDelete);
+        EventHistory.getInstance().addCommandToUndoStack(this);
         return new CommandResult(String.format(MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete));
+    }
+
+    /**
+     * Returns the exercise to be deleted from Exercise Book.
+     *
+     * @return exercise referred to by targetIndex
+     */
+    public Exercise getExercise() {
+        return exerciseToDelete;
     }
 
     @Override
