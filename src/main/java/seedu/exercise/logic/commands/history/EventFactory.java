@@ -2,6 +2,7 @@ package seedu.exercise.logic.commands.history;
 
 import seedu.exercise.logic.commands.AddCommand;
 import seedu.exercise.logic.commands.DeleteCommand;
+import seedu.exercise.logic.commands.EditCommand;
 import seedu.exercise.logic.commands.UndoableCommand;
 import seedu.exercise.model.exercise.Exercise;
 
@@ -25,6 +26,11 @@ public class EventFactory {
         } else if (command instanceof DeleteCommand) {
             Exercise exercise = ((DeleteCommand) command).getExercise();
             return new DeleteEvent(exercise);
+
+        } else if (command instanceof EditCommand) {
+            Exercise exerciseOld = ((EditCommand) command).getExerciseToEdit();
+            Exercise exerciseNew = ((EditCommand) command).getEditedExercise();
+            return new EditEvent(exerciseOld, exerciseNew);
 
         } else {
             return null;
