@@ -1,11 +1,11 @@
 package seedu.exercise.logic.commands.history;
 
-import seedu.exercise.logic.commands.AddExerciseCommand;
-import seedu.exercise.logic.commands.DeleteExerciseCommand;
 import java.util.logging.Logger;
 
 import seedu.exercise.commons.core.LogsCenter;
+import seedu.exercise.logic.commands.AddExerciseCommand;
 import seedu.exercise.logic.commands.ClearCommand;
+import seedu.exercise.logic.commands.DeleteExerciseCommand;
 import seedu.exercise.logic.commands.EditCommand;
 import seedu.exercise.logic.commands.UndoableCommand;
 import seedu.exercise.logic.commands.exceptions.CommandException;
