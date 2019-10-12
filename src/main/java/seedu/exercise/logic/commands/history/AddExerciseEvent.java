@@ -4,7 +4,7 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.exercise.Exercise;
 
 /**
- * Represents a particular add event that can be redone or or undone.
+ * Represents a particular add event that can be redone or undone.
  */
 public class AddExerciseEvent implements Event {
 

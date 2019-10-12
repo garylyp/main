@@ -4,7 +4,7 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.exercise.Exercise;
 
 /**
- * Represents a particular delete event that can be redone or or undone.
+ * Represents a particular delete event that can be redone or undone.
  */
 public class DeleteExerciseEvent implements Event {
 

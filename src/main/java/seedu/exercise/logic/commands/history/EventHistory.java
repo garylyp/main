@@ -1,16 +1,18 @@
 package seedu.exercise.logic.commands.history;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.Stack;
+import java.util.logging.Logger;
 
+import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.logic.commands.UndoableCommand;
+import seedu.exercise.logic.commands.exceptions.CommandException;
 
 /**
  * A singleton class that tracks a single history of undoable events.
  */
 public class EventHistory {
 
+    private static final Logger logger = LogsCenter.getLogger(EventHistory.class);
     private static Stack<Event> undoStack;
     private static Stack<Event> redoStack;
 
@@ -39,8 +41,13 @@ public class EventHistory {
      * @param command an undoable command to be stored in history
      */
     public void addCommandToUndoStack(UndoableCommand command) {
-        Event event = EventFactory.commandToEvent(command);
-        requireNonNull(event);
+        Event event;
+        try {
+            event = EventFactory.commandToEvent(command);
+        } catch (CommandException e) {
+            logger.info(e.getMessage());
+            return;
+        }
         undoStack.add(event);
         redoStack.clear();
     }
