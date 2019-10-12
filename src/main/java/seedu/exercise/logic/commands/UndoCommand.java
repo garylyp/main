@@ -22,13 +22,13 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        EventHistory commandHistory = EventHistory.getInstance();
+        EventHistory eventHistory = EventHistory.getInstance();
 
-        if (commandHistory.isUndoStackEmpty()) {
+        if (eventHistory.isUndoStackEmpty()) {
             throw new CommandException(MESSAGE_EMPTY_UNDO_STACK);
         }
 
-        Event eventToUndo = commandHistory.undo();
+        Event eventToUndo = eventHistory.undo();
         eventToUndo.undo(model);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventToUndo));

@@ -20,7 +20,7 @@ public class ClearCommand extends Command implements UndoableCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        exerciseBookPrevious = new ExerciseBook(model.getAllData()); // Create a deep copy
+        exerciseBookPrevious = new ExerciseBook(model.getAllExerciseData()); // Create a deep copy
         model.setExerciseBook(new ExerciseBook());
         EventHistory.getInstance().addCommandToUndoStack(this);
         return new CommandResult(MESSAGE_SUCCESS);

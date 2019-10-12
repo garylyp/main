@@ -4,9 +4,9 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.exercise.Exercise;
 
 /**
- * Represents a particular delete event that can be redone or or undone.
+ * Represents a particular delete event that can be redone or undone.
  */
-public class DeleteEvent implements Event {
+public class DeleteExerciseEvent implements Event {
 
     private static final String EVENT_DESCRIPTION = "Delete exercise: %1$s";
 
@@ -16,11 +16,11 @@ public class DeleteEvent implements Event {
     private final Exercise exercise;
 
     /**
-     * Creates a DeleteEvent to store the particular event of an exercise being deleted from the exercise book.
+     * Creates a DeleteExerciseEvent to store the particular event of an exercise being deleted from the exercise book.
      *
-     * @param exercise the exercise that has been deleted in this instance of DeleteEvent.
+     * @param exercise the exercise that has been deleted in this instance of DeleteExerciseEvent.
      */
-    DeleteEvent(Exercise exercise) {
+    DeleteExerciseEvent(Exercise exercise) {
         this.exercise = exercise;
     }
 
@@ -37,7 +37,7 @@ public class DeleteEvent implements Event {
     /**
      * Returns the exercise that was deleted.
      *
-     * @return exercise that is passed into constructor of DeleteEvent
+     * @return exercise that is passed into constructor of DeleteExerciseEvent
      */
     public Exercise getExercise() {
         return exercise;
@@ -51,8 +51,8 @@ public class DeleteEvent implements Event {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteEvent // instanceof handles nulls
-                && exercise.equals(((DeleteEvent) other).getExercise()));
+                || (other instanceof DeleteExerciseEvent // instanceof handles nulls
+                && exercise.equals(((DeleteExerciseEvent) other).getExercise()));
     }
 
 }

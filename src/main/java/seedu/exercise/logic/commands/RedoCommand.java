@@ -20,13 +20,13 @@ public class RedoCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        EventHistory actionHistory = EventHistory.getInstance();
+        EventHistory eventHistory = EventHistory.getInstance();
 
-        if (actionHistory.isRedoStackEmpty()) {
+        if (eventHistory.isRedoStackEmpty()) {
             throw new CommandException(MESSAGE_EMPTY_REDO_STACK);
         }
 
-        Event eventToRedo = actionHistory.redo();
+        Event eventToRedo = eventHistory.redo();
         eventToRedo.redo(model);
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, eventToRedo));
