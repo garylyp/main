@@ -6,7 +6,7 @@ import seedu.exercise.model.exercise.Exercise;
 /**
  * Represents a particular add event that can be redone or or undone.
  */
-public class AddEvent implements Event {
+public class AddExerciseEvent implements Event {
 
     private static final String EVENT_DESCRIPTION = "Add exercise: %1$s";
 
@@ -16,11 +16,11 @@ public class AddEvent implements Event {
     private final Exercise exercise;
 
     /**
-     * Creates an AddEvent to store the particular event of an exercise being added to the exercise book.
+     * Creates an AddExerciseEvent to store the particular event of an exercise being added to the exercise book.
      *
-     * @param exercise the exercise that has been added in this instance of AddEvent.
+     * @param exercise the exercise that has been added in this instance of AddExerciseEvent.
      */
-    AddEvent(Exercise exercise) {
+    AddExerciseEvent(Exercise exercise) {
         this.exercise = exercise;
     }
 
@@ -37,7 +37,7 @@ public class AddEvent implements Event {
     /**
      * Returns the exercise that was added.
      *
-     * @return exercise that is passed into constructor of AddEvent
+     * @return exercise that is passed into constructor of AddExerciseEvent
      */
     public Exercise getExercise() {
         return exercise;
@@ -51,8 +51,8 @@ public class AddEvent implements Event {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddEvent // instanceof handles nulls
-                && exercise.equals(((AddEvent) other).getExercise()));
+                || (other instanceof AddExerciseEvent // instanceof handles nulls
+                && exercise.equals(((AddExerciseEvent) other).getExercise()));
     }
 
 }

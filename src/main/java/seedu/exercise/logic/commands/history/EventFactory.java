@@ -1,7 +1,7 @@
 package seedu.exercise.logic.commands.history;
 
-import seedu.exercise.logic.commands.AddCommand;
-import seedu.exercise.logic.commands.DeleteCommand;
+import seedu.exercise.logic.commands.AddExerciseCommand;
+import seedu.exercise.logic.commands.DeleteExerciseCommand;
 import seedu.exercise.logic.commands.UndoableCommand;
 import seedu.exercise.model.exercise.Exercise;
 
@@ -18,13 +18,13 @@ public class EventFactory {
      * @return an Event that can be undone or redone
      */
     static Event commandToEvent(UndoableCommand command) {
-        if (command instanceof AddCommand) {
-            Exercise exercise = ((AddCommand) command).getExercise();
-            return new AddEvent(exercise);
+        if (command instanceof AddExerciseCommand) {
+            Exercise exercise = ((AddExerciseCommand) command).getExercise();
+            return new AddExerciseEvent(exercise);
 
-        } else if (command instanceof DeleteCommand) {
-            Exercise exercise = ((DeleteCommand) command).getExercise();
-            return new DeleteEvent(exercise);
+        } else if (command instanceof DeleteExerciseCommand) {
+            Exercise exercise = ((DeleteExerciseCommand) command).getExercise();
+            return new DeleteExerciseEvent(exercise);
 
         } else {
             return null;
