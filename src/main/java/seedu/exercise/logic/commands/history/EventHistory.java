@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.logic.commands.UndoableCommand;
 import seedu.exercise.logic.commands.exceptions.CommandException;
+import seedu.exercise.model.Model;
 
 /**
  * A singleton class that tracks a single history of undoable events.
@@ -55,11 +56,13 @@ public class EventHistory {
     /**
      * Returns the next event to undo.
      *
+     * @param model {@code Model} which the command should operate on.
      * @return undoable event
      */
-    public Event undo() {
+    public Event undo(Model model) {
         assert(!undoStack.isEmpty());
         Event actionToUndo = undoStack.pop();
+        actionToUndo.undo(model);
         redoStack.push(actionToUndo);
         return actionToUndo;
     }
@@ -67,11 +70,13 @@ public class EventHistory {
     /**
      * Returns the next event to redo.
      *
+     * @param model {@code Model} which the command should operate on.
      * @return undoable event
      */
-    public Event redo() {
+    public Event redo(Model model) {
         assert(!redoStack.isEmpty());
         Event actionToRedo = redoStack.pop();
+        actionToRedo.redo(model);
         undoStack.push(actionToRedo);
         return actionToRedo;
     }

@@ -26,8 +26,7 @@ public class RedoCommand extends Command {
             throw new CommandException(MESSAGE_EMPTY_REDO_STACK);
         }
 
-        Event eventToRedo = eventHistory.redo();
-        eventToRedo.redo(model);
+        Event eventToRedo = eventHistory.redo(model);
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, eventToRedo));
     }
