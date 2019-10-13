@@ -28,9 +28,7 @@ public class UndoCommand extends Command {
             throw new CommandException(MESSAGE_EMPTY_UNDO_STACK);
         }
 
-        Event eventToUndo = eventHistory.undo();
-        eventToUndo.undo(model);
-
+        Event eventToUndo = eventHistory.undo(model);
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventToUndo));
     }
 
