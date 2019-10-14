@@ -40,8 +40,8 @@ public class EventFactory {
             return new EditEvent(exerciseOld, exerciseNew);
 
         } else if (command instanceof ClearCommand) {
-            ReadOnlyExerciseBook exerciseBookCleared = new ExerciseBook(
-                    ((ClearCommand) command).getExerciseBookCleared());
+            ReadOnlyExerciseBook exerciseBookCleared =
+                    new ExerciseBook(((ClearCommand) command).getExerciseBookCleared());
             return new ClearEvent(exerciseBookCleared);
 
         } else {

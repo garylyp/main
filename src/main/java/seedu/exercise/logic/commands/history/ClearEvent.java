@@ -14,20 +14,20 @@ public class ClearEvent implements Event {
     /**
      * The exercise book that exists before the clear event.
      */
-    private final ReadOnlyExerciseBook exerciseBook;
+    private final ReadOnlyExerciseBook exerciseBookCleared;
 
     /**
      * Creates a ClearEvent to store the particular event of the exercise book being cleared.
      *
-     * @param exerciseBookPrevious an exercise book in the state before the ClearEvent.
+     * @param exerciseBookCleared an exercise book in the state before the ClearEvent.
      */
-    ClearEvent(ReadOnlyExerciseBook exerciseBookPrevious) {
-        this.exerciseBook = exerciseBookPrevious;
+    ClearEvent(ReadOnlyExerciseBook exerciseBookCleared) {
+        this.exerciseBookCleared = exerciseBookCleared;
     }
 
     @Override
     public void undo(Model model) {
-        model.setExerciseBook(exerciseBook);
+        model.setExerciseBook(exerciseBookCleared);
     }
 
     @Override
@@ -40,20 +40,20 @@ public class ClearEvent implements Event {
      *
      * @return an exercise book in the state before the ClearEvent.
      */
-    public ReadOnlyExerciseBook getExerciseBook() {
-        return exerciseBook;
+    public ReadOnlyExerciseBook getExerciseBookCleared() {
+        return exerciseBookCleared;
     }
 
     @Override
     public String toString() {
-        return String.format(EVENT_DESCRIPTION, exerciseBook);
+        return String.format(EVENT_DESCRIPTION, exerciseBookCleared);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ClearEvent // instanceof handles nulls
-                && exerciseBook.equals(((ClearEvent) other).getExerciseBook()));
+                && exerciseBookCleared.equals(((ClearEvent) other).getExerciseBookCleared()));
     }
 
 }

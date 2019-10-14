@@ -95,9 +95,9 @@ public class EditCommand extends Command implements UndoableCommand {
     }
 
     /**
-     * Returns the exercise to be added in the exercise book.
+     * Returns the exercise to be edited in the exercise book.
      *
-     * @return exercise that is passed into constructor of EditCommand
+     * @return exercise to be edited
      */
     public Exercise getExerciseToEdit() {
         return exerciseToEdit;

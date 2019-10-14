@@ -24,12 +24,16 @@ public class ClearCommand extends Command implements UndoableCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         exerciseBookCleared = model.getExerciseBookData();
-                new ExerciseBook();
         EventHistory.getInstance().addCommandToUndoStack(this);
         model.setExerciseBook(new ExerciseBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    /**
+     * Returns the ExerciseBook to be cleared from the ModelManager.
+     *
+     * @return exercise book to be cleared
+     */
     public ReadOnlyExerciseBook getExerciseBookCleared() {
         return exerciseBookCleared;
     }
