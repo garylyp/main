@@ -6,6 +6,7 @@ import seedu.exercise.logic.commands.DeleteExerciseCommand;
 import seedu.exercise.logic.commands.EditCommand;
 import seedu.exercise.logic.commands.UndoableCommand;
 import seedu.exercise.logic.commands.exceptions.CommandException;
+import seedu.exercise.model.ExerciseBook;
 import seedu.exercise.model.ReadOnlyExerciseBook;
 import seedu.exercise.model.exercise.Exercise;
 
@@ -39,8 +40,9 @@ public class EventFactory {
             return new EditEvent(exerciseOld, exerciseNew);
 
         } else if (command instanceof ClearCommand) {
-            ReadOnlyExerciseBook exerciseBook = ((ClearCommand) command).getExerciseBookPrevious();
-            return new ClearEvent(exerciseBook);
+            ReadOnlyExerciseBook exerciseBookCleared = new ExerciseBook(
+                    ((ClearCommand) command).getExerciseBookCleared());
+            return new ClearEvent(exerciseBookCleared);
 
         } else {
             throw new CommandException(

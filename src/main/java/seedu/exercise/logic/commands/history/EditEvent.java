@@ -8,7 +8,7 @@ import seedu.exercise.model.exercise.Exercise;
  */
 public class EditEvent implements Event {
 
-    private static final String EVENT_DESCRIPTION = "Edit exercise: %1$s\nTo: %2$s";
+    private static final String EVENT_DESCRIPTION = "Edit\t: %1$s\nTo\t: %2$s";
 
     /**
      * The exercise that has been edited during the event.

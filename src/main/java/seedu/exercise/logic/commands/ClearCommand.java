@@ -15,18 +15,22 @@ public class ClearCommand extends Command implements UndoableCommand {
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Exercise book has been cleared!";
 
-    private ReadOnlyExerciseBook exerciseBookPrevious;
+    /**
+     * The exercise book that this instance of ClearCommand has cleared.
+     */
+    private ReadOnlyExerciseBook exerciseBookCleared;
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        exerciseBookPrevious = new ExerciseBook(model.getAllExerciseData()); // Create a deep copy
-        model.setExerciseBook(new ExerciseBook());
+        exerciseBookCleared = model.getExerciseBookData();
+                new ExerciseBook();
         EventHistory.getInstance().addCommandToUndoStack(this);
+        model.setExerciseBook(new ExerciseBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-    public ReadOnlyExerciseBook getExerciseBookPrevious() {
-        return exerciseBookPrevious;
+    public ReadOnlyExerciseBook getExerciseBookCleared() {
+        return exerciseBookCleared;
     }
 }
