@@ -20,6 +20,7 @@ import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.commons.util.CollectionUtil;
 import seedu.exercise.logic.commands.events.EventHistory;
+import seedu.exercise.logic.commands.events.EventPayload;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.property.Calories;
@@ -54,11 +55,12 @@ public class EditCommand extends Command implements UndoableCommand {
     public static final String MESSAGE_EDIT_EXERCISE_SUCCESS = "Edited Exercise: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_EXERCISE = "This exercise already exists in the exercise book.";
+    public static final String KEY_EXERCISE_TO_EDIT = "exerciseToEdit";
+    public static final String KEY_EDITED_EXERCISE = "editedExercise";
 
     private final Index index;
     private final EditExerciseDescriptor editExerciseDescriptor;
-    private Exercise exerciseToEdit;
-    private Exercise editedExercise;
+    private EventPayload<Exercise> eventPayload;
 
     /**
      * @param index                  of the exercise in the filtered exercise list to edit
@@ -69,6 +71,7 @@ public class EditCommand extends Command implements UndoableCommand {
         requireNonNull(editExerciseDescriptor);
 
         this.index = index;
+        this.eventPayload = new EventPayload<>();
         this.editExerciseDescriptor = new EditExerciseDescriptor(editExerciseDescriptor);
     }
 
@@ -81,13 +84,14 @@ public class EditCommand extends Command implements UndoableCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
         }
 
-        exerciseToEdit = lastShownList.get(index.getZeroBased());
-        editedExercise = createEditedExercise(exerciseToEdit, editExerciseDescriptor);
+        Exercise exerciseToEdit = lastShownList.get(index.getZeroBased());
+        Exercise editedExercise = createEditedExercise(exerciseToEdit, editExerciseDescriptor);
 
         if (!exerciseToEdit.isSameResource(editedExercise) && model.hasExercise(editedExercise)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
         }
-
+        eventPayload.put(KEY_EXERCISE_TO_EDIT, exerciseToEdit);
+        eventPayload.put(KEY_EDITED_EXERCISE, editedExercise);
         model.setExercise(exerciseToEdit, editedExercise);
         EventHistory.getInstance().addCommandToUndoStack(this);
         model.updateFilteredExerciseList(Model.PREDICATE_SHOW_ALL_EXERCISES);
@@ -100,21 +104,12 @@ public class EditCommand extends Command implements UndoableCommand {
     }
 
     /**
-     * Returns the exercise to be edited in the exercise book.
+     * Returns the payload that stores the exercise that has been edited in this command.
      *
-     * @return exercise to be edited
+     * @return payload to store the exercise that have been used in this command
      */
-    public Exercise getExerciseToEdit() {
-        return exerciseToEdit;
-    }
-
-    /**
-     * Returns the newly edited exercise.
-     *
-     * @return exercise with fields edited
-     */
-    public Exercise getEditedExercise() {
-        return editedExercise;
+    public EventPayload<Exercise> getEventPayload() {
+        return eventPayload;
     }
 
     /**

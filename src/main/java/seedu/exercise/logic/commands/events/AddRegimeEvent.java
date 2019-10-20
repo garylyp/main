@@ -18,7 +18,7 @@ public class AddRegimeEvent implements Event {
      * Creates an AddRegimeEvent to store the particular event of a regime being added to
      * the regime book.
      *
-     * @param eventPayload a data carrier that stores the essential information for undo and redo
+     * @param eventPayload a wrapper class that stores the essential information for undo and redo
      */
     AddRegimeEvent(EventPayload<Regime> eventPayload) {
         this.regimeToAdd = eventPayload.get(AddRegimeCommand.KEY_REGIME_TO_ADD);

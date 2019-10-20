@@ -1,5 +1,6 @@
 package seedu.exercise.logic.commands.events;
 
+import seedu.exercise.logic.commands.EditCommand;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Exercise;
 
@@ -24,12 +25,11 @@ public class EditEvent implements Event {
      * Creates a EditEvent to store the particular event of an exercise being edited
      * in the exercise book.
      *
-     * @param exerciseOld exercise before the edit event happens
-     * @param exerciseNew exercise after the edit event happens
+     * @param eventPayload a wrapper class that stores the essential information for undo and redo
      */
-    EditEvent(Exercise exerciseOld, Exercise exerciseNew) {
-        this.exerciseOld = exerciseOld;
-        this.exerciseNew = exerciseNew;
+    EditEvent(EventPayload<Exercise> eventPayload) {
+        this.exerciseOld = eventPayload.get(EditCommand.KEY_EXERCISE_TO_EDIT);
+        this.exerciseNew = eventPayload.get(EditCommand.KEY_EDITED_EXERCISE);
     }
 
     @Override

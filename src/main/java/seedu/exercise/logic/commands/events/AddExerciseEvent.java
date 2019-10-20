@@ -1,5 +1,6 @@
 package seedu.exercise.logic.commands.events;
 
+import seedu.exercise.logic.commands.AddExerciseCommand;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Exercise;
 
@@ -18,10 +19,10 @@ public class AddExerciseEvent implements Event {
     /**
      * Creates an AddExerciseEvent to store the particular event of an exercise being added to the exercise book.
      *
-     * @param exercise the exercise that has been added in this instance of AddExerciseEvent.
+     * @param eventPayload a wrapper class that stores the essential information for undo and redo
      */
-    AddExerciseEvent(Exercise exercise) {
-        this.exercise = exercise;
+    AddExerciseEvent(EventPayload<Exercise> eventPayload) {
+        this.exercise = eventPayload.get(AddExerciseCommand.KEY_EXERCISE_TO_ADD);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package seedu.exercise.logic.commands.events;
 
+import seedu.exercise.logic.commands.DeleteExerciseCommand;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Exercise;
 
@@ -13,25 +14,25 @@ public class DeleteExerciseEvent implements Event {
     /**
      * The exercise that has been deleted during the event.
      */
-    private final Exercise exercise;
+    private final Exercise exerciseToDelete;
 
     /**
      * Creates a DeleteExerciseEvent to store the particular event of an exercise being deleted from the exercise book.
      *
-     * @param exercise the exercise that has been deleted in this instance of DeleteExerciseEvent.
+     * @param eventPayload a wrapper class that stores the essential information for undo and redo
      */
-    DeleteExerciseEvent(Exercise exercise) {
-        this.exercise = exercise;
+    DeleteExerciseEvent(EventPayload<Exercise> eventPayload) {
+        this.exerciseToDelete = eventPayload.get(DeleteExerciseCommand.KEY_EXERCISE_TO_DELETE);
     }
 
     @Override
     public void undo(Model model) {
-        model.addExercise(exercise);
+        model.addExercise(exerciseToDelete);
     }
 
     @Override
     public void redo(Model model) {
-        model.deleteExercise(exercise);
+        model.deleteExercise(exerciseToDelete);
     }
 
     /**
@@ -39,20 +40,20 @@ public class DeleteExerciseEvent implements Event {
      *
      * @return exercise that is passed into constructor of DeleteExerciseEvent
      */
-    public Exercise getExercise() {
-        return exercise;
+    public Exercise getExerciseToDelete() {
+        return exerciseToDelete;
     }
 
     @Override
     public String toString() {
-        return String.format(EVENT_DESCRIPTION, exercise);
+        return String.format(EVENT_DESCRIPTION, exerciseToDelete);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteExerciseEvent // instanceof handles nulls
-                && exercise.equals(((DeleteExerciseEvent) other).getExercise()));
+                && exerciseToDelete.equals(((DeleteExerciseEvent) other).getExerciseToDelete()));
     }
 
 }

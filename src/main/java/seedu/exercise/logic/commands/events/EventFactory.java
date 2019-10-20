@@ -41,16 +41,11 @@ public class EventFactory {
         case DeleteCommand.COMMAND_WORD:
             return deleteCommandToEvent((DeleteCommand) command);
 
-
         case EditCommand.COMMAND_WORD:
-            Exercise exerciseOld = ((EditCommand) command).getExerciseToEdit();
-            Exercise exerciseNew = ((EditCommand) command).getEditedExercise();
-            return new EditEvent(exerciseOld, exerciseNew);
+            return new EditEvent(((EditCommand) command).getEventPayload());
 
         case ClearCommand.COMMAND_WORD:
-            ReadOnlyResourceBook<Exercise> exerciseBookCleared =
-                    new ReadOnlyResourceBook<>(((ClearCommand) command).getExerciseBookCleared());
-            return new ClearEvent(exerciseBookCleared);
+            return new ClearEvent(((ClearCommand) command).getEventPayload());
 
         default:
             throw new CommandException(
@@ -68,9 +63,9 @@ public class EventFactory {
     private static Event addCommandToEvent(AddCommand command) throws CommandException {
         String resourceType = command.getResourceType();
         switch (resourceType) {
-        case DeleteExerciseCommand.RESOURCE_TYPE:
-            Exercise exerciseAdded = ((AddExerciseCommand) command).getExercise();
-            return new AddExerciseEvent(exerciseAdded);
+        case AddExerciseCommand.RESOURCE_TYPE:
+            EventPayload<Exercise> eventPayload = ((AddExerciseCommand) command).getEventPayload();
+            return new AddExerciseEvent(eventPayload);
 
         case AddRegimeCommand.RESOURCE_TYPE:
             AddRegimeCommand addRegimeCommand = (AddRegimeCommand) command;
@@ -97,8 +92,8 @@ public class EventFactory {
         String resourceType = command.getResourceType();
         switch (resourceType) {
         case DeleteExerciseCommand.RESOURCE_TYPE:
-            Exercise exerciseDeleted = ((DeleteExerciseCommand) command).getExercise();
-            return new DeleteExerciseEvent(exerciseDeleted);
+            EventPayload<Exercise> eventPayload = ((DeleteExerciseCommand) command).getEventPayload();
+            return new DeleteExerciseEvent(eventPayload);
 
         case DeleteRegimeCommand.RESOURCE_TYPE:
             DeleteRegimeCommand deleteRegimeCommand = (DeleteRegimeCommand) command;

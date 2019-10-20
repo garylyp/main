@@ -19,7 +19,7 @@ public class DeleteRegimeEvent implements Event {
      * Creates a DeleteRegimeEvent to store the particular event of a regime being deleted from
      * the regime book.
      *
-     * @param eventPayload a data carrier that stores the essential information for undo and redo
+     * @param eventPayload a wrapper class that stores the essential information for undo and redo
      */
     DeleteRegimeEvent(EventPayload<Regime> eventPayload) {
         this.regimeToDelete = eventPayload.get(DeleteRegimeCommand.KEY_REGIME_TO_DELETE);

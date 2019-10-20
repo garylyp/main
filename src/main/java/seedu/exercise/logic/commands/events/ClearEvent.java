@@ -1,5 +1,6 @@
 package seedu.exercise.logic.commands.events;
 
+import seedu.exercise.logic.commands.ClearCommand;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;
@@ -19,10 +20,10 @@ public class ClearEvent implements Event {
     /**
      * Creates a ClearEvent to store the particular event of the exercise book being cleared.
      *
-     * @param exerciseBookCleared an exercise book in the state before the ClearEvent.
+     * @param eventPayload a wrapper class that stores the exercise book in the state before the ClearEvent.
      */
-    ClearEvent(ReadOnlyResourceBook<Exercise> exerciseBookCleared) {
-        this.exerciseBookCleared = exerciseBookCleared;
+    ClearEvent(EventPayload<ReadOnlyResourceBook<Exercise>> eventPayload) {
+        this.exerciseBookCleared = eventPayload.get(ClearCommand.KEY_EXERCISE_BOOK_CLEARED);
     }
 
     @Override

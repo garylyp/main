@@ -10,6 +10,7 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
 
 import seedu.exercise.logic.commands.events.EventHistory;
+import seedu.exercise.logic.commands.events.EventPayload;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Exercise;
@@ -39,27 +40,40 @@ public class AddExerciseCommand extends AddCommand {
     public static final String MESSAGE_SUCCESS = "New exercise added: %1$s";
     public static final String MESSAGE_DUPLICATE_EXERCISE = "This exercise already exists in the exercise book";
     public static final String RESOURCE_TYPE = "exercise";
+    public static final String KEY_EXERCISE_TO_ADD = "exerciseToAdd";
 
-    private Exercise toAdd;
+    private Exercise exerciseToAdd;
+    private EventPayload<Exercise> eventPayload;
 
     /**
      * Creates an AddExerciseCommand to add the specified {@code Exercise}
      */
     public AddExerciseCommand(Exercise exercise) {
         requireNonNull(exercise);
-        toAdd = exercise;
+        exerciseToAdd = exercise;
+        eventPayload = new EventPayload<>();
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (model.hasExercise(toAdd)) {
+        if (model.hasExercise(exerciseToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
         }
 
-        model.addExercise(toAdd);
+        model.addExercise(exerciseToAdd);
+        eventPayload.put(KEY_EXERCISE_TO_ADD, exerciseToAdd);
         EventHistory.getInstance().addCommandToUndoStack(this);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, exerciseToAdd));
+    }
+
+    /**
+     * Returns the payload that stores the exercise that has been added in this command.
+     *
+     * @return payload to store the exercise that have been used in this command
+     */
+    public EventPayload<Exercise> getEventPayload() {
+        return eventPayload;
     }
 
     @Override
@@ -67,19 +81,10 @@ public class AddExerciseCommand extends AddCommand {
         return RESOURCE_TYPE;
     }
 
-    /**
-     * Returns the exercise to be added to the exercise book.
-     *
-     * @return exercise to be added
-     */
-    public Exercise getExercise() {
-        return toAdd;
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof AddExerciseCommand // instanceof handles nulls
-            && toAdd.equals(((AddExerciseCommand) other).toAdd));
+            && exerciseToAdd.equals(((AddExerciseCommand) other).exerciseToAdd));
     }
 }
