@@ -94,6 +94,11 @@ public class EditCommand extends Command implements UndoableCommand {
         return new CommandResult(String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise));
     }
 
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
+
     /**
      * Returns the exercise to be edited in the exercise book.
      *

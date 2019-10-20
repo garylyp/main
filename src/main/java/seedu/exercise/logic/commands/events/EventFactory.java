@@ -1,7 +1,10 @@
 package seedu.exercise.logic.commands.events;
 
+import seedu.exercise.logic.commands.AddCommand;
 import seedu.exercise.logic.commands.AddExerciseCommand;
 import seedu.exercise.logic.commands.ClearCommand;
+import seedu.exercise.logic.commands.Command;
+import seedu.exercise.logic.commands.DeleteCommand;
 import seedu.exercise.logic.commands.DeleteExerciseCommand;
 import seedu.exercise.logic.commands.EditCommand;
 import seedu.exercise.logic.commands.UndoableCommand;
@@ -21,31 +24,35 @@ public class EventFactory {
      * Generates an Event object that can execute the behaviour of a given Command as well
      * as its opposite behaviour.
      *
-     * @param command a {@code Command} to be represented with using an Event object
+     * @param undoableCommand a {@code UndoableCommand} to be represented with using an Event object
      * @return an {@code Event} that can be undone or redone
+     * @throws CommandException if command provided is not undoable
      */
-    static Event commandToEvent(UndoableCommand command) throws CommandException {
-        if (command instanceof AddExerciseCommand) {
-            Exercise exercise = ((AddExerciseCommand) command).getExercise();
-            return new AddExerciseEvent(exercise);
+    static Event commandToEvent(UndoableCommand undoableCommand) throws CommandException {
+        Command command = (Command) undoableCommand;
+        String commandWord = command.getCommandWord();
+        switch (commandWord) {
+        case AddCommand.COMMAND_WORD:
+            Exercise exerciseAdded = ((AddExerciseCommand) command).getExercise();
+            return new AddExerciseEvent(exerciseAdded);
 
-        } else if (command instanceof DeleteExerciseCommand) {
-            Exercise exercise = ((DeleteExerciseCommand) command).getExercise();
-            return new DeleteExerciseEvent(exercise);
+        case DeleteCommand.COMMAND_WORD:
+            Exercise exerciseDeleted = ((DeleteExerciseCommand) command).getExercise();
+            return new DeleteExerciseEvent(exerciseDeleted);
 
-        } else if (command instanceof EditCommand) {
+        case EditCommand.COMMAND_WORD:
             Exercise exerciseOld = ((EditCommand) command).getExerciseToEdit();
             Exercise exerciseNew = ((EditCommand) command).getEditedExercise();
             return new EditEvent(exerciseOld, exerciseNew);
 
-        } else if (command instanceof ClearCommand) {
+        case ClearCommand.COMMAND_WORD:
             ReadOnlyResourceBook<Exercise> exerciseBookCleared =
-                new ReadOnlyResourceBook<>(((ClearCommand) command).getExerciseBookCleared());
+                    new ReadOnlyResourceBook<>(((ClearCommand) command).getExerciseBookCleared());
             return new ClearEvent(exerciseBookCleared);
 
-        } else {
+        default:
             throw new CommandException(
-                String.format(MESSAGE_COMMAND_NOT_UNDOABLE, command.getClass().getName()));
+                    String.format(MESSAGE_COMMAND_NOT_UNDOABLE, commandWord));
         }
     }
 

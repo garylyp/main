@@ -29,6 +29,11 @@ public class ClearCommand extends Command implements UndoableCommand {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
+
     /**
      * Returns the ExerciseBook to be cleared from the ModelManager.
      *

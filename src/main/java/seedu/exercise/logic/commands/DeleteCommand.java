@@ -22,4 +22,9 @@ public abstract class DeleteCommand extends Command implements UndoableCommand {
             + "or Deletes the regimes/exercise in regime identified by name/index in the displayed regime list\n"
             + "EXERCISE: " + MESSAGE_USAGE_EXERCISE + "\n"
             + "REGIME: " + MESSAGE_USAGE_REGIME;
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 }
