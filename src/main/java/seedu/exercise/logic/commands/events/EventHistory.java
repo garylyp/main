@@ -14,9 +14,9 @@ import seedu.exercise.model.Model;
 public class EventHistory {
 
     private static final Logger logger = LogsCenter.getLogger(EventHistory.class);
+    private static EventHistory eventHistory;
     private Stack<Event> undoStack;
     private Stack<Event> redoStack;
-    private static EventHistory eventHistory;
 
     /**
      * Initializes both undo and redo history if no undo history exists.

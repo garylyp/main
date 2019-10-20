@@ -11,7 +11,6 @@ import seedu.exercise.logic.commands.DeleteRegimeCommand;
 import seedu.exercise.logic.commands.EditCommand;
 import seedu.exercise.logic.commands.UndoableCommand;
 import seedu.exercise.logic.commands.exceptions.CommandException;
-import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;
 
 /**

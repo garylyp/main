@@ -1,9 +1,7 @@
 package seedu.exercise.logic.commands.events;
 
-import seedu.exercise.logic.commands.AddRegimeCommand;
 import seedu.exercise.logic.commands.DeleteRegimeCommand;
 import seedu.exercise.model.Model;
-import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 
 /**
