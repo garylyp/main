@@ -23,6 +23,13 @@ public abstract class DeleteCommand extends Command implements UndoableCommand {
             + "EXERCISE: " + MESSAGE_USAGE_EXERCISE + "\n"
             + "REGIME: " + MESSAGE_USAGE_REGIME;
 
+    /**
+     * Returns the type of the resource being deleted from the model.
+     *
+     * @return the name of the resource being deleted, "exercise" or "regime"
+     */
+    public abstract String getResourceType();
+
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;

@@ -2,6 +2,7 @@ package seedu.exercise.logic.commands.events;
 
 import seedu.exercise.logic.commands.AddCommand;
 import seedu.exercise.logic.commands.AddExerciseCommand;
+import seedu.exercise.logic.commands.AddRegimeCommand;
 import seedu.exercise.logic.commands.ClearCommand;
 import seedu.exercise.logic.commands.Command;
 import seedu.exercise.logic.commands.DeleteCommand;
@@ -11,6 +12,7 @@ import seedu.exercise.logic.commands.UndoableCommand;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.model.resource.Regime;
 
 /**
  * A utility class to generate specific Event objects depending on requirements.
@@ -33,8 +35,19 @@ public class EventFactory {
         String commandWord = command.getCommandWord();
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
-            Exercise exerciseAdded = ((AddExerciseCommand) command).getExercise();
-            return new AddExerciseEvent(exerciseAdded);
+            String resourceType = ((AddCommand) command).getResourceType();
+            switch (resourceType) {
+            case AddExerciseCommand.RESOURCE_TYPE:
+                Exercise exerciseAdded = ((AddExerciseCommand) command).getExercise();
+                return new AddExerciseEvent(exerciseAdded);
+
+            case AddRegimeCommand.RESOURCE_TYPE:
+                AddRegimeCommand addRegimeCommand = (AddRegimeCommand) command;
+                return new AddRegimeEvent(addRegimeCommand.isExistingRegime(),
+                                            addRegimeCommand.getRegimeToAdd(),
+                                            addRegimeCommand.getPreviousRegime());
+            }
+
 
         case DeleteCommand.COMMAND_WORD:
             Exercise exerciseDeleted = ((DeleteExerciseCommand) command).getExercise();

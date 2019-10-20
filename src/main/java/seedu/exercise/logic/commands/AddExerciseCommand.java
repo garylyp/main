@@ -38,6 +38,7 @@ public class AddExerciseCommand extends AddCommand {
 
     public static final String MESSAGE_SUCCESS = "New exercise added: %1$s";
     public static final String MESSAGE_DUPLICATE_EXERCISE = "This exercise already exists in the exercise book";
+    public static final String RESOURCE_TYPE = "exercise";
 
     private Exercise toAdd;
 
@@ -59,6 +60,11 @@ public class AddExerciseCommand extends AddCommand {
         model.addExercise(toAdd);
         EventHistory.getInstance().addCommandToUndoStack(this);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    @Override
+    public String getResourceType() {
+        return RESOURCE_TYPE;
     }
 
     /**

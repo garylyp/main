@@ -17,6 +17,7 @@ import seedu.exercise.model.resource.Exercise;
 public class DeleteExerciseCommand extends DeleteCommand {
 
     public static final String MESSAGE_DELETE_EXERCISE_SUCCESS = "Deleted Exercise: %1$s";
+    public static final String RESOURCE_TYPE = "exercise";
 
     private final Index targetIndex;
     private Exercise exerciseToDelete;
@@ -38,6 +39,11 @@ public class DeleteExerciseCommand extends DeleteCommand {
         model.deleteExercise(exerciseToDelete);
         EventHistory.getInstance().addCommandToUndoStack(this);
         return new CommandResult(String.format(MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete));
+    }
+
+    @Override
+    public String getResourceType() {
+        return RESOURCE_TYPE;
     }
 
     /**

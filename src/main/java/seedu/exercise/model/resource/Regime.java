@@ -30,16 +30,22 @@ public class Regime extends Resource {
         return regimeName;
     }
 
+    public UniqueResourceList<Exercise> getRegimeExercises() {
+        return regimeExercises;
+    }
+
+    public Regime getDuplicateCopy() {
+        UniqueResourceList<Exercise> newRegimeExercises = new UniqueResourceList<>();
+        newRegimeExercises.setAll(regimeExercises);
+        return new Regime(regimeName, newRegimeExercises);
+    }
+
     /**
      * Returns true if both regimes have the same name.
      */
     @Override
     public boolean isSameResource(Resource otherResource) {
         return this.equals(otherResource);
-    }
-
-    public UniqueResourceList<Exercise> getRegimeExercises() {
-        return regimeExercises;
     }
 
     @Override

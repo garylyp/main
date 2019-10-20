@@ -10,6 +10,7 @@ import java.util.List;
 
 import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.index.Index;
+import seedu.exercise.logic.commands.events.EventHistory;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.UniqueResourceList;
@@ -37,9 +38,13 @@ public class AddRegimeCommand extends AddCommand {
     public static final String MESSAGE_DUPLICATE_EXERCISE_IN_REGIME = "Exercise already in regime.";
     public static final String MESSAGE_NO_EXERCISES_ADDED = "No index provided, nothing changes.";
     public static final String MESSAGE_DUPLICATE_INDEX_WHEN_CREATING_REGIME = "There is duplicate index.";
+    public static final String RESOURCE_TYPE = "regime";
 
     private List<Index> toAddIndexes;
     private Name name;
+    private boolean isExistingRegime;
+    private Regime regimeToAdd;
+    private Regime previousRegime;
 
     public AddRegimeCommand(List<Index> indexes, Name name) {
         requireAllNonNull(indexes, name);
@@ -63,6 +68,7 @@ public class AddRegimeCommand extends AddCommand {
         //create new regime
         Regime regime = new Regime(name, new UniqueResourceList<Exercise>());
         if (!model.hasRegime(regime)) {
+            isExistingRegime = false;
             for (Index index : toAddIndexes) {
                 if (regime.getRegimeExercises().contains(lastShownList.get(index.getZeroBased()))) {
                     throw new CommandException(MESSAGE_DUPLICATE_INDEX_WHEN_CREATING_REGIME);
@@ -71,16 +77,21 @@ public class AddRegimeCommand extends AddCommand {
             }
 
             model.addRegime(regime);
+            regimeToAdd = regime;
+            EventHistory.getInstance().addCommandToUndoStack(this);
             return new CommandResult(MESSAGE_SUCCESS_NEW_REGIME);
-        } else { //add exercise to existing regime
+        } else {
+            //add exercise to existing regime
+            isExistingRegime = true;
             if (toAddIndexes.size() == 0) {
                 throw new CommandException(MESSAGE_NO_EXERCISES_ADDED);
             }
 
             int indexOfRegime = model.getRegimeIndex(regime);
             List<Regime> regimes = model.getFilteredRegimeList();
-            Regime regimeToAddExercises = regimes.get(indexOfRegime);
+            Regime currentRegime = regimes.get(indexOfRegime);
 
+            Regime regimeToAddExercises = currentRegime.getDuplicateCopy();
             UniqueResourceList<Exercise> currentExerciseList = regimeToAddExercises.getRegimeExercises();
 
             //check whether exercise is in current exercise list in regime
@@ -95,10 +106,30 @@ public class AddRegimeCommand extends AddCommand {
                 regimeToAddExercises.addExercise(lastShownList.get(index.getZeroBased()));
             }
 
+            previousRegime = currentRegime;
+            regimeToAdd = regimeToAddExercises;
             model.setRegime(regime, regimeToAddExercises);
             model.updateFilteredRegimeList(Model.PREDICATE_SHOW_ALL_REGIMES);
+            EventHistory.getInstance().addCommandToUndoStack(this);
             return new CommandResult(MESSAGE_SUCCESS_ADD_EXERCISE_TO_REGIME);
         }
+    }
+
+    public boolean isExistingRegime() {
+        return isExistingRegime;
+    }
+
+    public Regime getRegimeToAdd() {
+        return regimeToAdd;
+    }
+
+    public Regime getPreviousRegime() {
+        return previousRegime;
+    }
+
+    @Override
+    public String getResourceType() {
+        return RESOURCE_TYPE;
     }
 
     @Override

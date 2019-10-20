@@ -19,8 +19,9 @@ import seedu.exercise.model.resource.Regime;
 public class DeleteRegimeCommand extends DeleteCommand {
 
     public static final String MESSAGE_DELETE_REGIME_SUCCESS = "Deleted Regime: %1$s";
-    private static final String MESSAGE_REGIME_DOES_NOT_EXIST = "No such regime in regime book.";
-    private static final String MESSAGE_DELETE_EXERCISE_IN_REGIME_SUCCESS = "Deleted exercises in regime.";
+    public static final String MESSAGE_REGIME_DOES_NOT_EXIST = "No such regime in regime book.";
+    public static final String MESSAGE_DELETE_EXERCISE_IN_REGIME_SUCCESS = "Deleted exercises in regime.";
+    public static final String RESOURCE_TYPE = "regime";
 
     private final List<Index> indexes;
     private final Name name;
@@ -69,6 +70,11 @@ public class DeleteRegimeCommand extends DeleteCommand {
             model.updateFilteredRegimeList(Model.PREDICATE_SHOW_ALL_REGIMES);
             return new CommandResult(String.format(MESSAGE_DELETE_EXERCISE_IN_REGIME_SUCCESS, regimeToDelete));
         }
+    }
+
+    @Override
+    public String getResourceType() {
+        return RESOURCE_TYPE;
     }
 
     @Override

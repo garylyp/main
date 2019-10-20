@@ -15,6 +15,13 @@ public abstract class AddCommand extends Command implements UndoableCommand {
             + "EXERCISE: " + MESSAGE_USAGE_EXERCISE + "\n"
             + "REGIME: " + MESSAGE_USAGE_REGIME;
 
+    /**
+     * Returns the type of the resource being added to the model.
+     *
+     * @return the name of the resource being added, "exercise" or "regime"
+     */
+    public abstract String getResourceType();
+
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;
