@@ -6,6 +6,8 @@ import java.util.List;
 
 import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.index.Index;
+import seedu.exercise.logic.commands.events.EventHistory;
+import seedu.exercise.logic.commands.events.EventPayload;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.UniqueResourceList;
@@ -22,13 +24,19 @@ public class DeleteRegimeCommand extends DeleteCommand {
     public static final String MESSAGE_REGIME_DOES_NOT_EXIST = "No such regime in regime book.";
     public static final String MESSAGE_DELETE_EXERCISE_IN_REGIME_SUCCESS = "Deleted exercises in regime.";
     public static final String RESOURCE_TYPE = "regime";
+    public static final String KEY_REGIME_TO_DELETE = "regimeToDelete";
+    public static final String KEY_PREVIOUS_REGIME = "previousRegime";
+    public static final String KEY_EDITED_REGIME = "editedRegime";
 
     private final List<Index> indexes;
     private final Name name;
+    private boolean isRegimeEdited;
+    private final EventPayload<Regime> eventPayload;
 
     public DeleteRegimeCommand(Name name, List<Index> indexes) {
         this.name = name;
         this.indexes = indexes;
+        this.eventPayload = new EventPayload<>();
     }
 
     @Override
@@ -46,13 +54,18 @@ public class DeleteRegimeCommand extends DeleteCommand {
 
         //no index provided, delete regime
         if (indexes == null) {
-
+            isRegimeEdited = false;
             model.deleteRegime(regimeToDelete);
+            eventPayload.put(KEY_REGIME_TO_DELETE, regimeToDelete);
+            EventHistory.getInstance().addCommandToUndoStack(this);
             return new CommandResult(String.format(MESSAGE_DELETE_REGIME_SUCCESS, regimeToDelete));
 
         } else { //index provided, delete exercise in regime
+            isRegimeEdited = true;
+            Regime previousRegime = regimeToDelete;
+            Regime editedRegime = previousRegime.getDuplicateCopy();
+            List<Exercise> currentExerciseList = previousRegime.getRegimeExercises().asUnmodifiableObservableList();
 
-            List<Exercise> currentExerciseList = regimeToDelete.getRegimeExercises().asUnmodifiableObservableList();
             //check all index valid
             for (Index targetIndex : indexes) {
                 if (targetIndex.getZeroBased() >= currentExerciseList.size()) {
@@ -63,13 +76,33 @@ public class DeleteRegimeCommand extends DeleteCommand {
             // delete exercise identified by index
             for (Index targetIndex : indexes) {
                 Exercise exerciseToDelete = currentExerciseList.get(targetIndex.getZeroBased());
-                regimeToDelete.deleteExercise(exerciseToDelete);
+                editedRegime.deleteExercise(exerciseToDelete);
             }
 
-            model.setRegime(regime, regimeToDelete);
+            eventPayload.put(KEY_PREVIOUS_REGIME, previousRegime);
+            eventPayload.put(KEY_EDITED_REGIME, editedRegime);
+            model.setRegime(previousRegime, editedRegime);
             model.updateFilteredRegimeList(Model.PREDICATE_SHOW_ALL_REGIMES);
-            return new CommandResult(String.format(MESSAGE_DELETE_EXERCISE_IN_REGIME_SUCCESS, regimeToDelete));
+            EventHistory.getInstance().addCommandToUndoStack(this);
+            return new CommandResult(String.format(MESSAGE_DELETE_EXERCISE_IN_REGIME_SUCCESS, editedRegime));
         }
+    }
+
+    /**
+     * Returns whether the DeleteRegimeCommand deletes a regime completely or edits a previous regime.
+     * @return true if a regime is edited, false is a regime is deleted
+     */
+    public boolean isRegimeEdited() {
+        return isRegimeEdited;
+    }
+
+    /**
+     * Returns the payload that stores the regime that has been deleted or edited in this command.
+     *
+     * @return payload to store the relevant regime(s) that have been used in this command
+     */
+    public EventPayload<Regime> getEventPayload() {
+        return eventPayload;
     }
 
     @Override
