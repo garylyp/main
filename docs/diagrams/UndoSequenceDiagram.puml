@@ -1,53 +1,64 @@
 @startuml
 !include style.puml
+title Undo Sequence Diagram for Add Exercise
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
+participant ":UndoCommand" as UndoCommand LOGIC_COLOR
+participant ":EventHistory" as EventHistory LOGIC_COLOR
+participant ":Event" as Event LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
-participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
+participant "model:Model" as Model MODEL_COLOR
 end box
-[-> LogicManager : execute(undo)
+[-> LogicManager : execute("undo")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(undo)
-activate AddressBookParser
+    LogicManager -> AddressBookParser : parseCommand("undo")
+    activate AddressBookParser
 
-create UndoCommand
-AddressBookParser -> UndoCommand
-activate UndoCommand
+        create UndoCommand
+        AddressBookParser -> UndoCommand
+        activate UndoCommand
 
-UndoCommand --> AddressBookParser
-deactivate UndoCommand
+        UndoCommand --> AddressBookParser
+        deactivate UndoCommand
 
-AddressBookParser --> LogicManager : u
-deactivate AddressBookParser
+    AddressBookParser --> LogicManager : command
+    deactivate AddressBookParser
 
-LogicManager -> UndoCommand : execute()
-activate UndoCommand
+    LogicManager -> UndoCommand : execute(model)
+    activate UndoCommand
 
-UndoCommand -> Model : undoAddressBook()
-activate Model
+        UndoCommand -> EventHistory : undo(model)
+        activate EventHistory
 
-Model -> VersionedAddressBook : undo()
-activate VersionedAddressBook
+            EventHistory -> Event : undo(model)
+            activate Event
 
-VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
-VersionedAddressBook --> Model :
-deactivate VersionedAddressBook
+                Event -> Model : deleteExercise(exercise)
+                activate Model
 
-Model --> UndoCommand
-deactivate Model
+                Event -[hidden]-> Model
 
-UndoCommand --> LogicManager : result
-deactivate UndoCommand
-UndoCommand -[hidden]-> LogicManager : result
-destroy UndoCommand
+                Model --> Event
+                deactivate Model
 
-[<--LogicManager
+
+            Event --> EventHistory
+            deactivate Event
+
+        EventHistory --> UndoCommand : eventToUndo
+        deactivate EventHistory
+
+    UndoCommand --> LogicManager : commandResult
+    deactivate UndoCommand
+
+    UndoCommand -[hidden]-> LogicManager : commandResult
+    destroy UndoCommand
+
+[<--LogicManager : commandResult
 deactivate LogicManager
 @enduml
