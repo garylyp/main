@@ -1,6 +1,5 @@
 package seedu.exercise.logic.commands.events;
 
-import seedu.exercise.logic.commands.AddRegimeCommand;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Regime;
 
@@ -9,6 +8,7 @@ import seedu.exercise.model.resource.Regime;
  */
 public class AddRegimeEvent implements Event {
 
+    public static final String KEY_REGIME_TO_ADD = "regimeToAdd";
     private static final String EVENT_DESCRIPTION = "Add regime: %1$s\n%2$s";
 
     private final Regime regimeToAdd;
@@ -19,8 +19,8 @@ public class AddRegimeEvent implements Event {
      *
      * @param eventPayload a wrapper class that stores the essential information for undo and redo
      */
-    AddRegimeEvent(EventPayload<Regime> eventPayload) {
-        this.regimeToAdd = eventPayload.get(AddRegimeCommand.KEY_REGIME_TO_ADD);
+    public AddRegimeEvent(EventPayload<? super Regime> eventPayload) {
+        this.regimeToAdd = (Regime) eventPayload.get(KEY_REGIME_TO_ADD);
     }
 
     @Override

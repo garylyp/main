@@ -23,8 +23,4 @@ public abstract class ScheduleCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_INDEX + "1";
 
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
 }

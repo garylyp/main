@@ -6,7 +6,7 @@ import static seedu.exercise.logic.commands.AddRegimeCommand.MESSAGE_USAGE_REGIM
 /**
  * Represents an AddCommand with hidden internal logic and the ability to be executed.
  */
-public abstract class AddCommand extends Command implements UndoableCommand {
+public abstract class AddCommand extends Command implements UndoableCommand, ResourceTypeDependentCommand {
 
     public static final String COMMAND_WORD = "add";
 
@@ -15,15 +15,8 @@ public abstract class AddCommand extends Command implements UndoableCommand {
             + "EXERCISE: " + MESSAGE_USAGE_EXERCISE + "\n"
             + "REGIME: " + MESSAGE_USAGE_REGIME;
 
-    /**
-     * Returns the type of the resource being added to the model.
-     *
-     * @return the name of the resource being added, "exercise" or "regime"
-     */
-    public abstract String getResourceType();
-
     @Override
-    public String getCommandWord() {
+    public String getUndoableCommandWord() {
         return COMMAND_WORD;
     }
 }

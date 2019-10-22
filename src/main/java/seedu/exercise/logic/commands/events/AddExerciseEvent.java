@@ -1,6 +1,5 @@
 package seedu.exercise.logic.commands.events;
 
-import seedu.exercise.logic.commands.AddExerciseCommand;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Exercise;
 
@@ -9,6 +8,7 @@ import seedu.exercise.model.resource.Exercise;
  */
 public class AddExerciseEvent implements Event {
 
+    public static final String KEY_EXERCISE_TO_ADD = "exerciseToAdd";
     private static final String EVENT_DESCRIPTION = "Add exercise: %1$s";
 
     /**
@@ -21,8 +21,8 @@ public class AddExerciseEvent implements Event {
      *
      * @param eventPayload a wrapper class that stores the essential information for undo and redo
      */
-    AddExerciseEvent(EventPayload<Exercise> eventPayload) {
-        this.exercise = eventPayload.get(AddExerciseCommand.KEY_EXERCISE_TO_ADD);
+    public AddExerciseEvent(EventPayload<? super Exercise> eventPayload) {
+        this.exercise = (Exercise) eventPayload.get(KEY_EXERCISE_TO_ADD);
     }
 
     @Override

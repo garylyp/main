@@ -1,6 +1,7 @@
 package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.exercise.logic.commands.events.ClearEvent.KEY_EXERCISE_BOOK_CLEARED;
 
 import seedu.exercise.logic.commands.events.EventHistory;
 import seedu.exercise.logic.commands.events.EventPayload;
@@ -11,11 +12,10 @@ import seedu.exercise.model.resource.Exercise;
 /**
  * Clears the exercise book.
  */
-public class ClearCommand extends Command implements UndoableCommand {
+public class ClearCommand extends Command implements UndoableCommand, PayloadCarrierCommand {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Exercise book has been cleared!";
-    public static final String KEY_EXERCISE_BOOK_CLEARED = "exerciseBookCleared";
 
     private EventPayload<ReadOnlyResourceBook<Exercise>> eventPayload;
 
@@ -31,16 +31,12 @@ public class ClearCommand extends Command implements UndoableCommand {
     }
 
     @Override
-    public String getCommandWord() {
+    public String getUndoableCommandWord() {
         return COMMAND_WORD;
     }
 
-    /**
-     * Returns the payload that stores the exercise book that has been cleared in this command.
-     *
-     * @return payload to store the exercise book that has been cleared in this command
-     */
-    public EventPayload<ReadOnlyResourceBook<Exercise>> getEventPayload() {
+    @Override
+    public EventPayload<ReadOnlyResourceBook<Exercise>> getPayload() {
         return eventPayload;
     }
 

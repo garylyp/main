@@ -25,11 +25,6 @@ public class SuggestBasicCommand extends SuggestCommand {
     }
 
     @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SuggestBasicCommand); // instanceof handles nulls

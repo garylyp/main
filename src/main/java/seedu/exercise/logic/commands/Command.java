@@ -17,10 +17,4 @@ public abstract class Command {
      */
     public abstract CommandResult execute(Model model) throws CommandException;
 
-    /**
-     * Returns the command word that is used to call the command in the command box Ui.
-     *
-     * @return command word of the command
-     */
-    public abstract String getCommandWord();
 }

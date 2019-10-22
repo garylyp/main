@@ -22,8 +22,4 @@ public class ListCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
 }

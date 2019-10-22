@@ -1,6 +1,7 @@
 package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.exercise.logic.commands.events.DeleteExerciseEvent.KEY_EXERCISE_TO_DELETE;
 
 import java.util.List;
 
@@ -15,11 +16,10 @@ import seedu.exercise.model.resource.Exercise;
 /**
  * Deletes an exercise identified using it's displayed index from the exercise book.
  */
-public class DeleteExerciseCommand extends DeleteCommand {
+public class DeleteExerciseCommand extends DeleteCommand implements PayloadCarrierCommand {
 
     public static final String MESSAGE_DELETE_EXERCISE_SUCCESS = "Deleted Exercise: %1$s";
     public static final String RESOURCE_TYPE = "exercise";
-    public static final String KEY_EXERCISE_TO_DELETE = "exerciseToDelete";
 
     private final Index targetIndex;
     private EventPayload<Exercise> eventPayload;
@@ -46,17 +46,13 @@ public class DeleteExerciseCommand extends DeleteCommand {
     }
 
     @Override
-    public String getResourceType() {
-        return RESOURCE_TYPE;
+    public EventPayload<Exercise> getPayload() {
+        return eventPayload;
     }
 
-    /**
-     * Returns the payload that stores the exercise that has been deleted in this command.
-     *
-     * @return payload to store the exercise that have been used in this command
-     */
-    public EventPayload<Exercise> getEventPayload() {
-        return eventPayload;
+    @Override
+    public String getResourceType() {
+        return RESOURCE_TYPE;
     }
 
     @Override

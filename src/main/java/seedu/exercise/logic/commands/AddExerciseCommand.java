@@ -1,6 +1,7 @@
 package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.exercise.logic.commands.events.AddExerciseEvent.KEY_EXERCISE_TO_ADD;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
@@ -18,7 +19,7 @@ import seedu.exercise.model.resource.Exercise;
 /**
  * Adds an exercise to the exercise book.
  */
-public class AddExerciseCommand extends AddCommand {
+public class AddExerciseCommand extends AddCommand implements PayloadCarrierCommand {
 
     public static final String MESSAGE_USAGE_EXERCISE = "Parameters: "
         + PREFIX_CATEGORY + "CATEGORY "
@@ -40,7 +41,6 @@ public class AddExerciseCommand extends AddCommand {
     public static final String MESSAGE_SUCCESS = "New exercise added: %1$s";
     public static final String MESSAGE_DUPLICATE_EXERCISE = "This exercise already exists in the exercise book";
     public static final String RESOURCE_TYPE = "exercise";
-    public static final String KEY_EXERCISE_TO_ADD = "exerciseToAdd";
 
     private Exercise exerciseToAdd;
     private EventPayload<Exercise> eventPayload;
@@ -67,12 +67,8 @@ public class AddExerciseCommand extends AddCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, exerciseToAdd));
     }
 
-    /**
-     * Returns the payload that stores the exercise that has been added in this command.
-     *
-     * @return payload to store the exercise that have been used in this command
-     */
-    public EventPayload<Exercise> getEventPayload() {
+    @Override
+    public EventPayload<Exercise> getPayload() {
         return eventPayload;
     }
 

@@ -7,7 +7,7 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 /**
  * Represents a DeleteCommand with hidden internal logic and the ability to be executed.
  */
-public abstract class DeleteCommand extends Command implements UndoableCommand {
+public abstract class DeleteCommand extends Command implements UndoableCommand, ResourceTypeDependentCommand {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE_EXERCISE = "Parameters: INDEX (must be a positive integer)\n"
@@ -23,15 +23,8 @@ public abstract class DeleteCommand extends Command implements UndoableCommand {
             + "EXERCISE: " + MESSAGE_USAGE_EXERCISE + "\n"
             + "REGIME: " + MESSAGE_USAGE_REGIME;
 
-    /**
-     * Returns the type of the resource being deleted from the model.
-     *
-     * @return the name of the resource being deleted, "exercise" or "regime"
-     */
-    public abstract String getResourceType();
-
     @Override
-    public String getCommandWord() {
+    public String getUndoableCommandWord() {
         return COMMAND_WORD;
     }
 }

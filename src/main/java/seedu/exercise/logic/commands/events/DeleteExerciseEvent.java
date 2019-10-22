@@ -1,6 +1,5 @@
 package seedu.exercise.logic.commands.events;
 
-import seedu.exercise.logic.commands.DeleteExerciseCommand;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Exercise;
 
@@ -9,6 +8,7 @@ import seedu.exercise.model.resource.Exercise;
  */
 public class DeleteExerciseEvent implements Event {
 
+    public static final String KEY_EXERCISE_TO_DELETE = "exerciseToDelete";
     private static final String EVENT_DESCRIPTION = "Delete exercise: %1$s";
 
     /**
@@ -21,8 +21,8 @@ public class DeleteExerciseEvent implements Event {
      *
      * @param eventPayload a wrapper class that stores the essential information for undo and redo
      */
-    DeleteExerciseEvent(EventPayload<Exercise> eventPayload) {
-        this.exerciseToDelete = eventPayload.get(DeleteExerciseCommand.KEY_EXERCISE_TO_DELETE);
+    public DeleteExerciseEvent(EventPayload<? super Exercise> eventPayload) {
+        this.exerciseToDelete = (Exercise) eventPayload.get(KEY_EXERCISE_TO_DELETE);
     }
 
     @Override

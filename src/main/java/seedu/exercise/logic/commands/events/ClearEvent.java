@@ -1,6 +1,5 @@
 package seedu.exercise.logic.commands.events;
 
-import seedu.exercise.logic.commands.ClearCommand;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;
@@ -10,6 +9,7 @@ import seedu.exercise.model.resource.Exercise;
  */
 public class ClearEvent implements Event {
 
+    public static final String KEY_EXERCISE_BOOK_CLEARED = "exerciseBookCleared";
     private static final String EVENT_DESCRIPTION = "Clear Exercise Book: %1$s";
 
     /**
@@ -22,8 +22,8 @@ public class ClearEvent implements Event {
      *
      * @param eventPayload a wrapper class that stores the exercise book in the state before the ClearEvent.
      */
-    ClearEvent(EventPayload<ReadOnlyResourceBook<Exercise>> eventPayload) {
-        this.exerciseBookCleared = eventPayload.get(ClearCommand.KEY_EXERCISE_BOOK_CLEARED);
+    public ClearEvent(EventPayload<? super ReadOnlyResourceBook<Exercise>> eventPayload) {
+        this.exerciseBookCleared = (ReadOnlyResourceBook<Exercise>) eventPayload.get(KEY_EXERCISE_BOOK_CLEARED);
     }
 
     @Override

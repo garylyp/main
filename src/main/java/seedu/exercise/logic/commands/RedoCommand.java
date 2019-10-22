@@ -31,8 +31,4 @@ public class RedoCommand extends Command {
             String.format(MESSAGE_SUCCESS, eventToRedo));
     }
 
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
 }

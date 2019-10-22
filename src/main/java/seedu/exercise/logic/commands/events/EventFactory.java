@@ -4,7 +4,6 @@ import seedu.exercise.logic.commands.AddCommand;
 import seedu.exercise.logic.commands.AddExerciseCommand;
 import seedu.exercise.logic.commands.AddRegimeCommand;
 import seedu.exercise.logic.commands.ClearCommand;
-import seedu.exercise.logic.commands.Command;
 import seedu.exercise.logic.commands.DeleteCommand;
 import seedu.exercise.logic.commands.DeleteExerciseCommand;
 import seedu.exercise.logic.commands.DeleteRegimeCommand;
@@ -20,31 +19,32 @@ public class EventFactory {
 
     public static final String MESSAGE_COMMAND_NOT_UNDOABLE =
         "The command \'%1$s\' cannot be stored as an undoable event.";
+    public static final String MESSAGE_COMMAND_RESOURCE_TYPE_NOT_FOUND =
+            "The resource type \'%1$s\' of the \'%2$s\' command is not known.";
 
     /**
      * Generates an Event object that can execute the behaviour of a given Command as well
      * as its opposite behaviour.
      *
-     * @param undoableCommand a {@code UndoableCommand} to be represented with using an Event object
+     * @param command a {@code UndoableCommand} to be represented with using an Event object
      * @return an {@code Event} that can be undone or redone
      * @throws CommandException if command provided is not undoable
      */
-    static Event commandToEvent(UndoableCommand undoableCommand) throws CommandException {
-        Command command = (Command) undoableCommand;
-        String commandWord = command.getCommandWord();
+    static Event commandToEvent(UndoableCommand command) throws CommandException {
+        String commandWord = command.getUndoableCommandWord();
 
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
-            return addCommandToEvent((AddCommand) command);
+            return generateEventFromAddCommand((AddCommand) command);
 
         case DeleteCommand.COMMAND_WORD:
-            return deleteCommandToEvent((DeleteCommand) command);
+            return generateEventFromDeleteCommand((DeleteCommand) command);
 
         case EditCommand.COMMAND_WORD:
-            return new EditEvent(((EditCommand) command).getEventPayload());
+            return new EditEvent(((EditCommand) command).getPayload());
 
         case ClearCommand.COMMAND_WORD:
-            return new ClearEvent(((ClearCommand) command).getEventPayload());
+            return new ClearEvent(((ClearCommand) command).getPayload());
 
         default:
             throw new CommandException(
@@ -59,24 +59,30 @@ public class EventFactory {
      * @return an {@code AddExerciseEvent}, {@code AddRegimeEvent} or {@code EditRegimeEvent}
      * that can be undone or redone
      */
-    private static Event addCommandToEvent(AddCommand command) throws CommandException {
+    private static Event generateEventFromAddCommand(AddCommand command) throws CommandException {
         String resourceType = command.getResourceType();
         switch (resourceType) {
         case AddExerciseCommand.RESOURCE_TYPE:
-            EventPayload<Exercise> eventPayload = ((AddExerciseCommand) command).getEventPayload();
+            EventPayload<Exercise> eventPayload = ((AddExerciseCommand) command).getPayload();
             return new AddExerciseEvent(eventPayload);
 
         case AddRegimeCommand.RESOURCE_TYPE:
             AddRegimeCommand addRegimeCommand = (AddRegimeCommand) command;
-            if (addRegimeCommand.isRegimeEdited()) {
-                return new EditRegimeEvent(addRegimeCommand.getEventPayload());
+            boolean isRegimeEdited = (boolean) addRegimeCommand
+                    .getPayload()
+                    .get(EditRegimeEvent.KEY_IS_REGIME_EDITED);
+
+            if (isRegimeEdited) {
+                return new EditRegimeEvent(addRegimeCommand.getPayload());
             } else {
-                return new AddRegimeEvent(addRegimeCommand.getEventPayload());
+                return new AddRegimeEvent(addRegimeCommand.getPayload());
             }
 
         default:
             throw new CommandException(
-                    String.format(MESSAGE_COMMAND_NOT_UNDOABLE, command.getCommandWord()));
+                    String.format(MESSAGE_COMMAND_RESOURCE_TYPE_NOT_FOUND,
+                            resourceType,
+                            command.getUndoableCommandWord()));
         }
     }
 
@@ -87,24 +93,30 @@ public class EventFactory {
      * @return an {@code DeleteExerciseEvent}, {@code DeleteRegimeEvent} or {@code EditRegimeEvent}
      * that can be undone or redone
      */
-    private static Event deleteCommandToEvent(DeleteCommand command) throws CommandException {
+    private static Event generateEventFromDeleteCommand(DeleteCommand command) throws CommandException {
         String resourceType = command.getResourceType();
         switch (resourceType) {
         case DeleteExerciseCommand.RESOURCE_TYPE:
-            EventPayload<Exercise> eventPayload = ((DeleteExerciseCommand) command).getEventPayload();
+            EventPayload<Exercise> eventPayload = ((DeleteExerciseCommand) command).getPayload();
             return new DeleteExerciseEvent(eventPayload);
 
         case DeleteRegimeCommand.RESOURCE_TYPE:
             DeleteRegimeCommand deleteRegimeCommand = (DeleteRegimeCommand) command;
-            if (deleteRegimeCommand.isRegimeEdited()) {
-                return new EditRegimeEvent(deleteRegimeCommand.getEventPayload());
+            boolean isRegimeEdited = (boolean) deleteRegimeCommand
+                    .getPayload()
+                    .get(EditRegimeEvent.KEY_IS_REGIME_EDITED);
+
+            if (isRegimeEdited) {
+                return new EditRegimeEvent(deleteRegimeCommand.getPayload());
             } else {
-                return new DeleteRegimeEvent(deleteRegimeCommand.getEventPayload());
+                return new DeleteRegimeEvent(deleteRegimeCommand.getPayload());
             }
 
         default:
             throw new CommandException(
-                    String.format(MESSAGE_COMMAND_NOT_UNDOABLE, command.getCommandWord()));
+                    String.format(MESSAGE_COMMAND_RESOURCE_TYPE_NOT_FOUND,
+                            resourceType,
+                            command.getUndoableCommandWord()));
         }
     }
 

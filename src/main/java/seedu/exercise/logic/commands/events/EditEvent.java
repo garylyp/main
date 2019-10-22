@@ -1,6 +1,5 @@
 package seedu.exercise.logic.commands.events;
 
-import seedu.exercise.logic.commands.EditCommand;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Exercise;
 
@@ -9,6 +8,8 @@ import seedu.exercise.model.resource.Exercise;
  */
 public class EditEvent implements Event {
 
+    public static final String KEY_EXERCISE_TO_EDIT = "exerciseToEdit";
+    public static final String KEY_EDITED_EXERCISE = "editedExercise";
     private static final String EVENT_DESCRIPTION = "Edit\t: %1$s\nTo\t: %2$s";
 
     /**
@@ -27,9 +28,9 @@ public class EditEvent implements Event {
      *
      * @param eventPayload a wrapper class that stores the essential information for undo and redo
      */
-    EditEvent(EventPayload<Exercise> eventPayload) {
-        this.exerciseOld = eventPayload.get(EditCommand.KEY_EXERCISE_TO_EDIT);
-        this.exerciseNew = eventPayload.get(EditCommand.KEY_EDITED_EXERCISE);
+    public EditEvent(EventPayload<? super Exercise> eventPayload) {
+        this.exerciseOld = (Exercise) eventPayload.get(KEY_EXERCISE_TO_EDIT);
+        this.exerciseNew = (Exercise) eventPayload.get(KEY_EDITED_EXERCISE);
     }
 
     @Override

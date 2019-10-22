@@ -1,6 +1,5 @@
 package seedu.exercise.logic.commands.events;
 
-import seedu.exercise.logic.commands.DeleteRegimeCommand;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Regime;
 
@@ -9,6 +8,7 @@ import seedu.exercise.model.resource.Regime;
  */
 public class DeleteRegimeEvent implements Event {
 
+    public static final String KEY_REGIME_TO_DELETE = "regimeToDelete";
     private static final String EVENT_DESCRIPTION = "Delete regime: %1$s\n%2$s";
 
     private final Regime regimeToDelete;
@@ -19,8 +19,8 @@ public class DeleteRegimeEvent implements Event {
      *
      * @param eventPayload a wrapper class that stores the essential information for undo and redo
      */
-    DeleteRegimeEvent(EventPayload<Regime> eventPayload) {
-        this.regimeToDelete = eventPayload.get(DeleteRegimeCommand.KEY_REGIME_TO_DELETE);
+    public DeleteRegimeEvent(EventPayload<? super Regime> eventPayload) {
+        this.regimeToDelete = (Regime) eventPayload.get(KEY_REGIME_TO_DELETE);
     }
 
     @Override

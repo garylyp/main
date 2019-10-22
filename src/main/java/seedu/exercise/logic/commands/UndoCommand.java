@@ -32,8 +32,4 @@ public class UndoCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventToUndo));
     }
 
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
 }
