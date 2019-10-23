@@ -51,7 +51,7 @@ activate LogicManager
             EditEvent --> EventHistory
             deactivate EditEvent
 
-        EventHistory --> UndoCommand : eventToUndo
+        EventHistory --> UndoCommand
         deactivate EventHistory
 
         create CommandResult
