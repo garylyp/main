@@ -1,6 +1,6 @@
 @startuml
 !include style.puml
-title Undo Sequence Diagram for Edit Exercise
+title Sequence Diagram for Undo Command on Edit Exercise
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
