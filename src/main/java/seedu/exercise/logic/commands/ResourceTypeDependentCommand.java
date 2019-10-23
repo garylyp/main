@@ -1,5 +1,9 @@
 package seedu.exercise.logic.commands;
 
+/**
+ * Interface for commands which share the same command word but operate on different resource types
+ * such as "exercise" or "regime".
+ */
 public interface ResourceTypeDependentCommand {
 
     /**

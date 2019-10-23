@@ -7,13 +7,13 @@ import java.util.HashMap;
  * for undo and redo commands. Data is accessed using keys specified by the Command
  * classes.
  *
- * @param <Object> The data stored can be of multiple types
+ * @param <T> The data stored can be of multiple types
  */
-public class EventPayload<Object> {
+public class EventPayload<T> {
 
-    private HashMap<String, Object> payload = new HashMap<>();
+    private HashMap<String, ? super T> payload = new HashMap<>();
 
-    public void put(String key, Object data) {
+    public void put(String key, T data) {
         payload.put(key, data);
     }
 
