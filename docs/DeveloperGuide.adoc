@@ -210,7 +210,7 @@ Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Sinc
 
 image::UndoRedoState5.png[]
 
-The following activity diagram summarizes what happens when a user executes a new command:
+The following activity diagram summarizes what happens when a user executes an undoable command:
 
 image::CommitActivityDiagram.png[]
 
@@ -218,21 +218,44 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
+* **Alternative 1: (current choice)** Implements undo and redo of each Command in a separate Event object.
+** Pros:
+*** Will use less memory as each frame is represented by an Event object instead of the entire model which consists of
+Exercise books and Regime books.
+*** Open for extensions and close to modifications as the Event interface only contains undo and redo methods, and can
+be easily implemented when new Undoable commands are introduced.
+*** Obeys Single Responsibility Principle as Commands simply have to execute what it does and does not need to know
+how it is undone or redone
+** Cons:
+*** Have to store the payload of `Command` objects to be accessed by Event objects
+(e.g. for `delete`, the exercise being deleted).
+
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Pros:
+*** Will use less memory
+** Cons:
+*** Violates Single Responsibility Principle as Commands need to know implementation for how it can be undone or redone.
+
+
+* **Alternative 3 (current choice):** Saves the entire address book.
+** Pros:
+*** Easy to implement.
+** Cons:
+*** May have performance issues in terms of memory usage.
+*** Very unnecessary storage of irrelevant details such as schedule list.
+
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* **Alternative 1:** Use `EventHistory` to store undo and redo stacks
+** Pros:
+*** We do not need to maintain a separate list, and just reuse what is already in the codebase.
+
+* **Alternative 2:** Use a list to store the history of address book states.
+** Pros: Very simple to understand
+** Cons:
+***
+
 // end::undoredo[]
 
 === Logging

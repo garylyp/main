@@ -1,13 +1,14 @@
 @startuml
 !include style.puml
-title Undo Sequence Diagram for Add Exercise
+title Undo Sequence Diagram for Edit Exercise
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ExerciseBookParser" as ExerciseBookParser LOGIC_COLOR
 participant ":UndoCommand" as UndoCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
 participant ":EventHistory" as EventHistory LOGIC_COLOR
-participant ":Event" as Event LOGIC_COLOR
+participant ":EditEvent" as EditEvent LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -16,18 +17,18 @@ end box
 [-> LogicManager : execute("undo")
 activate LogicManager
 
-    LogicManager -> AddressBookParser : parseCommand("undo")
-    activate AddressBookParser
+    LogicManager -> ExerciseBookParser : parseCommand("undo")
+    activate ExerciseBookParser
 
         create UndoCommand
-        AddressBookParser -> UndoCommand
+        ExerciseBookParser -> UndoCommand
         activate UndoCommand
 
-        UndoCommand --> AddressBookParser
+        UndoCommand --> ExerciseBookParser
         deactivate UndoCommand
 
-    AddressBookParser --> LogicManager : command
-    deactivate AddressBookParser
+    ExerciseBookParser --> LogicManager : command
+    deactivate ExerciseBookParser
 
     LogicManager -> UndoCommand : execute(model)
     activate UndoCommand
@@ -35,23 +36,31 @@ activate LogicManager
         UndoCommand -> EventHistory : undo(model)
         activate EventHistory
 
-            EventHistory -> Event : undo(model)
-            activate Event
+            EventHistory -> EditEvent : undo(model)
+            activate EditEvent
 
-                Event -> Model : deleteExercise(exercise)
+                EditEvent -> Model : set(editedExercise, originalExercise)
                 activate Model
 
-                Event -[hidden]-> Model
+                EditEvent -[hidden]-> Model
 
-                Model --> Event
+                Model --> EditEvent
                 deactivate Model
 
 
-            Event --> EventHistory
-            deactivate Event
+            EditEvent --> EventHistory
+            deactivate EditEvent
 
         EventHistory --> UndoCommand : eventToUndo
         deactivate EventHistory
+
+        create CommandResult
+        UndoCommand -> CommandResult
+        activate CommandResult
+
+        CommandResult --> UndoCommand
+        deactivate CommandResult
+
 
     UndoCommand --> LogicManager : commandResult
     deactivate UndoCommand
