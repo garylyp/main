@@ -453,8 +453,6 @@ e.g. `add t/exercise n/Bench press d/19/09/2019 c/500 q/50 u/reps m/Chest`
 e.g. `list t/exercise s/12/12/2019 e/17/12/2019`
 * *Edit* : `edit t/exercise i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]... `
 e.g. `edit t/exercise i/3 n/Bench press d/22/09/2019 c/240 q/10 u/sets m/Chest`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]`
-e.g. `find bench press`
 * *Delete* : `delete t/exercise i/INDEX`
 e.g. `delete t/exercise i/2`
 * *Clear* : `clear`
