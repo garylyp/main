@@ -1,7 +1,6 @@
 package seedu.exercise.logic.commands.events;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_CALORIES_BASKETBALL;
 import static seedu.exercise.logic.commands.events.AddExerciseEvent.KEY_EXERCISE_TO_ADD;
 import static seedu.exercise.logic.commands.events.AddRegimeEvent.KEY_REGIME_TO_ADD;
 import static seedu.exercise.logic.commands.events.ClearEvent.KEY_EXERCISE_BOOK_CLEARED;
@@ -12,18 +11,15 @@ import static seedu.exercise.logic.commands.events.EditEvent.KEY_ORIGINAL_EXERCI
 import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_EDITED_REGIME;
 import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_IS_REGIME_EDITED;
 import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_ORIGINAL_REGIME;
-import static seedu.exercise.testutil.TypicalIndexes.INDEX_FIFTH_EXERCISE;
-import static seedu.exercise.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
-import static seedu.exercise.testutil.TypicalIndexes.INDEX_FOURTH_EXERCISE;
-import static seedu.exercise.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
-import static seedu.exercise.testutil.TypicalIndexes.INDEX_THIRD_EXERCISE;
-import static seedu.exercise.testutil.exercise.TypicalExercises.BENCH_PRESS;
-import static seedu.exercise.testutil.exercise.TypicalExercises.DANCE;
-import static seedu.exercise.testutil.exercise.TypicalExercises.SKIP;
-import static seedu.exercise.testutil.exercise.TypicalExercises.SWIM;
-import static seedu.exercise.testutil.exercise.TypicalExercises.WALK;
-import static seedu.exercise.testutil.exercise.TypicalExercises.getTypicalExerciseBook;
-import static seedu.exercise.testutil.exercise.TypicalExercises.getTypicalExercises;
+import static seedu.exercise.testutil.CommonTestData.VALID_CALORIES_BASKETBALL;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.WALK;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExercises;
+import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FIFTH;
+import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
+import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FOURTH;
+import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_SECOND;
+import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_THIRD;
 
 import java.util.List;
 
@@ -42,9 +38,9 @@ import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
-import seedu.exercise.testutil.exercise.EditExerciseDescriptorBuilder;
-import seedu.exercise.testutil.exercise.ExerciseBuilder;
-import seedu.exercise.testutil.regime.RegimeBuilder;
+import seedu.exercise.testutil.builder.EditExerciseDescriptorBuilder;
+import seedu.exercise.testutil.builder.ExerciseBuilder;
+import seedu.exercise.testutil.builder.RegimeBuilder;
 
 /**
  * Contains helper methods for testing classes in the 'events' package.
@@ -53,21 +49,20 @@ public class EventTestUtil {
 
     // Exercises
     public static final Exercise WALK_EXERCISE = WALK;
-    public static final Exercise SWIM_EXERCISE = SWIM;
-    public static final Exercise DANCE_EXERCISE = DANCE;
-    public static final Exercise BENCH_PRESS_EXERCISE = BENCH_PRESS;
-    public static final Exercise SKIP_EXERCISE = SKIP;
     public static final Exercise WALK_EXERCISE_EDITED = new ExerciseBuilder(WALK_EXERCISE)
             .withCalories(VALID_CALORIES_BASKETBALL).build();
 
     // Regimes
     public static final Regime LEVEL_ONE_REGIME = new RegimeBuilder()
-            .withExercises(WALK_EXERCISE, SWIM_EXERCISE, DANCE_EXERCISE).build();
+            .withExerciseList(getTypicalExercises().subList(0, 3))
+            .build();
     public static final Regime LEVEL_ONE_REGIME_WITH_ONE_ADDITIONAL = new RegimeBuilder(LEVEL_ONE_REGIME)
-            .addExercise(BENCH_PRESS_EXERCISE).build();
+            .withExercise(getTypicalExercises().get(3))
+            .build();
     public static final Regime LEVEL_ONE_REGIME_WITH_TWO_ADDITIONAL = new RegimeBuilder(LEVEL_ONE_REGIME)
-            .addExercise(BENCH_PRESS_EXERCISE)
-            .addExercise(SKIP_EXERCISE).build();
+            .withExercise(getTypicalExercises().get(3))
+            .withExercise(getTypicalExercises().get(4))
+            .build();
 
     // Exercise Book
     public static final ReadOnlyResourceBook<Exercise> EXERCISE_BOOK = getTypicalExerciseBook();
@@ -114,20 +109,20 @@ public class EventTestUtil {
     // Commands
     public static final AddExerciseCommand ADD_EXERCISE_COMMAND_WITH_PAYLOAD = new AddExerciseCommand(WALK_EXERCISE);
     public static final DeleteExerciseCommand DELETE_EXERCISE_COMMAND_WITH_PAYLOAD =
-            new DeleteExerciseCommand(INDEX_FIRST_EXERCISE);
+            new DeleteExerciseCommand(INDEX_ONE_BASED_FIRST);
     public static final EditCommand EDIT_EXERCISE_COMMAND_WITH_PAYLOAD = new EditCommand(
-            INDEX_FIRST_EXERCISE,
+            INDEX_ONE_BASED_FIRST,
             new EditExerciseDescriptorBuilder(WALK_EXERCISE_EDITED).build());
     public static final AddRegimeCommand ADD_REGIME_COMMAND_WITH_ADD_PAYLOAD = new AddRegimeCommand(
-            List.of(INDEX_FIRST_EXERCISE, INDEX_SECOND_EXERCISE, INDEX_THIRD_EXERCISE),
+            List.of(INDEX_ONE_BASED_FIRST, INDEX_ONE_BASED_SECOND, INDEX_ONE_BASED_THIRD),
             LEVEL_ONE_REGIME.getRegimeName()
     );
     public static final AddRegimeCommand ADD_REGIME_COMMAND_WITH_EDIT_ONE_PAYLOAD = new AddRegimeCommand(
-            List.of(INDEX_FOURTH_EXERCISE),
+            List.of(INDEX_ONE_BASED_FOURTH),
             LEVEL_ONE_REGIME.getRegimeName()
     );
     public static final AddRegimeCommand ADD_REGIME_COMMAND_WITH_EDIT_TWO_PAYLOAD = new AddRegimeCommand(
-            List.of(INDEX_FOURTH_EXERCISE, INDEX_FIFTH_EXERCISE),
+            List.of(INDEX_ONE_BASED_FOURTH, INDEX_ONE_BASED_FIFTH),
             LEVEL_ONE_REGIME.getRegimeName()
     );
     public static final DeleteRegimeCommand DELETE_REGIME_COMMAND_WITH_DELETE_PAYLOAD = new DeleteRegimeCommand(
@@ -136,11 +131,11 @@ public class EventTestUtil {
     );
     public static final DeleteRegimeCommand DELETE_REGIME_COMMAND_WITH_EDIT_ONE_PAYLOAD = new DeleteRegimeCommand(
             LEVEL_ONE_REGIME.getRegimeName(),
-            List.of(INDEX_FOURTH_EXERCISE)
+            List.of(INDEX_ONE_BASED_FOURTH)
     );
     public static final DeleteRegimeCommand DELETE_REGIME_COMMAND_WITH_EDIT_TWO_PAYLOAD = new DeleteRegimeCommand(
             LEVEL_ONE_REGIME.getRegimeName(),
-            List.of(INDEX_FOURTH_EXERCISE, INDEX_FIFTH_EXERCISE)
+            List.of(INDEX_ONE_BASED_FOURTH, INDEX_ONE_BASED_FIFTH)
     );
     public static final ClearCommand CLEAR_COMMAND_WITH_PAYLOAD = new ClearCommand();
 

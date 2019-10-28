@@ -19,7 +19,7 @@ import static seedu.exercise.logic.commands.events.EventTestUtil.assertGenerated
 import static seedu.exercise.logic.commands.events.EventTestUtil.assertGeneratedDeleteEventEquals;
 import static seedu.exercise.logic.commands.events.EventTestUtil.assertGeneratedEventEquals;
 import static seedu.exercise.testutil.Assert.assertThrows;
-import static seedu.exercise.testutil.exercise.TypicalExercises.getTypicalExercises;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExercises;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

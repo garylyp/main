@@ -3,7 +3,7 @@ package seedu.exercise.logic.commands.events;
 import static seedu.exercise.logic.commands.events.EventTestUtil.CLEAR_EVENT_PAYLOAD;
 import static seedu.exercise.logic.commands.events.EventTestUtil.assertRedoEventSuccess;
 import static seedu.exercise.logic.commands.events.EventTestUtil.assertUndoEventSuccess;
-import static seedu.exercise.testutil.exercise.TypicalExercises.getTypicalExerciseBook;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

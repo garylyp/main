@@ -4,7 +4,7 @@ import static seedu.exercise.logic.commands.events.EventTestUtil.DELETE_REGIME_E
 import static seedu.exercise.logic.commands.events.EventTestUtil.LEVEL_ONE_REGIME;
 import static seedu.exercise.logic.commands.events.EventTestUtil.assertRedoEventSuccess;
 import static seedu.exercise.logic.commands.events.EventTestUtil.assertUndoEventSuccess;
-import static seedu.exercise.testutil.exercise.TypicalExercises.getTypicalExerciseBook;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
