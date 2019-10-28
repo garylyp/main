@@ -20,6 +20,8 @@ import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.commons.core.State;
 import seedu.exercise.commons.core.index.Index;
+import seedu.exercise.logic.commands.statistic.Statistic;
+import seedu.exercise.logic.commands.statistic.StatsFactory;
 import seedu.exercise.logic.parser.Prefix;
 import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.property.CustomProperty;
@@ -46,7 +48,7 @@ public class ModelManager implements Model {
     private final FilteredList<Regime> filteredRegimes;
     private final FilteredList<Schedule> filteredSchedules;
     private final ObservableList<Exercise> suggestions = FXCollections.observableArrayList();
-
+    private final Statistic statistic;
     private Conflict conflict;
 
     /**
@@ -68,6 +70,8 @@ public class ModelManager implements Model {
         filteredExercises = new FilteredList<>(this.exerciseBook.getResourceList());
         filteredRegimes = new FilteredList<>(this.regimeBook.getResourceList());
         filteredSchedules = new FilteredList<>(this.scheduleBook.getResourceList());
+        StatsFactory statsFactory = new StatsFactory(exerciseBook, "linechart", "calories", null, null);
+        this.statistic = statsFactory.getDefaultStatistic();
 
         this.propertyBook = propertyBook;
         this.propertyBook.updatePropertyPrefixes();
@@ -159,7 +163,6 @@ public class ModelManager implements Model {
 
     public void setExercise(Exercise target, Exercise editedExercise) {
         requireAllNonNull(target, editedExercise);
-
         exerciseBook.setResource(target, editedExercise);
     }
 
@@ -250,7 +253,7 @@ public class ModelManager implements Model {
             addResolvedSchedule(conflict.getScheduleByRegime(regime));
         } else {
             UniqueResourceList<Exercise> resolvedExercises =
-                    getResolvedExerciseList(indexFromSchedule, indexFromConflict);
+                getResolvedExerciseList(indexFromSchedule, indexFromConflict);
             Schedule resolvedSchedule = getResolvedSchedule(regimeName, resolvedExercises);
             addResolvedSchedule(resolvedSchedule);
             addCombinedRegime(resolvedSchedule.getRegime());
@@ -276,7 +279,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Exercise} backed by the internal list of
-     * {@code versionedExerciseBook}
+     * {@code exerciseBook}.
      */
     @Override
     public ObservableList<Exercise> getFilteredExerciseList() {
@@ -293,7 +296,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Regime} backed by the internal list of
-     * {@code versionedRegimeBook}
+     * {@code regimeBook}.
      */
     public ObservableList<Regime> getFilteredRegimeList() {
         return filteredRegimes;
@@ -331,6 +334,10 @@ public class ModelManager implements Model {
 
     public void addCustomProperty(CustomProperty customProperty) {
         propertyBook.addCustomProperty(customProperty);
+    }
+
+    public void removeCustomProperty(String fullName) {
+        propertyBook.removeCustomProperty(fullName);
     }
 
     //=========== ExerciseDatabase ===============================================================
@@ -377,6 +384,26 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateStatistic() {
+        ReadOnlyResourceBook<Exercise> exercises = getExerciseBookData();
+        Statistic outdatedStatistic = getStatistic();
+        StatsFactory statsFactory = new StatsFactory(exercises, outdatedStatistic.getChart(),
+                outdatedStatistic.getCategory(), outdatedStatistic.getStartDate(), outdatedStatistic.getEndDate());
+        Statistic statistic = statsFactory.generateStatistic();
+        this.statistic.resetData(statistic);
+    }
+
+    @Override
+    public void setStatistic(Statistic statistic) {
+        this.statistic.resetData(statistic);
+    }
+
+    @Override
+    public Statistic getStatistic() {
+        return statistic;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -407,9 +434,9 @@ public class ModelManager implements Model {
         Regime scheduledRegime = conflict.getScheduledRegime();
         Regime conflictRegime = conflict.getConflictingRegime();
         List<Exercise> exercisesToAddFromScheduled = scheduledRegime.getRegimeExercises()
-                .getAllResourcesIndex(indexFromSchedule);
+            .getAllResourcesIndex(indexFromSchedule);
         List<Exercise> exercisesToAddFromConflicted = conflictRegime.getRegimeExercises()
-                .getAllResourcesIndex(indexFromConflict);
+            .getAllResourcesIndex(indexFromConflict);
         List<Exercise> resolvedExercises = append(exercisesToAddFromScheduled, exercisesToAddFromConflicted);
         UniqueResourceList<Exercise> uniqueResolveList = new UniqueResourceList<>();
         uniqueResolveList.setAll(resolvedExercises);
