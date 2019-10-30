@@ -5,6 +5,9 @@ import static seedu.exercise.logic.commands.events.DeleteRegimeEvent.KEY_REGIME_
 import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_EDITED_REGIME;
 import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_IS_REGIME_EDITED;
 import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_ORIGINAL_REGIME;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.HashSet;
 import java.util.List;
@@ -26,6 +29,12 @@ import seedu.exercise.ui.ListResourceType;
  */
 public class DeleteRegimeCommand extends DeleteCommand implements PayloadCarrierCommand {
 
+    public static final String MESSAGE_USAGE_REGIME = "Parameters: REGIME NAME, INDEX (must be a positive integer)\n"
+            + "\t\tExample: "
+            + COMMAND_WORD + " "
+            + PREFIX_CATEGORY + "regime "
+            + PREFIX_NAME + "level 1 "
+            + PREFIX_INDEX + "1";
     public static final String MESSAGE_DELETE_REGIME_SUCCESS = "Deleted Regime: %1$s\n%2$s";
     public static final String MESSAGE_REGIME_DOES_NOT_EXIST = "No such regime in regime book.";
     public static final String MESSAGE_DELETE_EXERCISE_IN_REGIME_SUCCESS = "Deleted exercises in regime.";

@@ -4,6 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.exercise.logic.parser.AddCommandParser.ADD_CATEGORY_EXERCISE;
 import static seedu.exercise.logic.parser.AddCommandParser.ADD_CATEGORY_REGIME;
+import static seedu.exercise.logic.parser.ListCommandParser.LIST_TYPE_EXERCISE;
+import static seedu.exercise.logic.parser.ListCommandParser.LIST_TYPE_REGIME;
+import static seedu.exercise.logic.parser.ListCommandParser.LIST_TYPE_SCHEDULE;
+import static seedu.exercise.logic.parser.ListCommandParser.LIST_TYPE_SUGGESTION;
 import static seedu.exercise.logic.parser.SuggestCommandParser.SUGGEST_TYPE_BASIC;
 import static seedu.exercise.logic.parser.SuggestCommandParser.SUGGEST_TYPE_POSSIBLE;
 import static seedu.exercise.model.property.PropertyBook.getCustomProperties;
@@ -179,7 +183,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String category} into a String.
+     * Parses a {@code category} into a String.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code category} is invalid
@@ -191,6 +195,28 @@ public class ParserUtil {
             && !trimmedCategory.equals(ADD_CATEGORY_REGIME)) {
             throw new ParseException("Category can only be \'" + ADD_CATEGORY_EXERCISE + "\'"
                 + " or \'" + ADD_CATEGORY_REGIME + "\'");
+        }
+        return trimmedCategory;
+    }
+
+    /**
+     * Parses a {@code listType} into a String.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code listType} is invalid
+     */
+    public static String parseListType(String listType) throws ParseException {
+        requireNonNull(listType);
+        String trimmedCategory = listType.trim();
+        if (!(trimmedCategory.equals(LIST_TYPE_EXERCISE)
+                || trimmedCategory.equals(LIST_TYPE_REGIME)
+                || trimmedCategory.equals(LIST_TYPE_SCHEDULE)
+                || trimmedCategory.equals(LIST_TYPE_SUGGESTION))) {
+            throw new ParseException("Category can only be \'"
+                    + LIST_TYPE_EXERCISE + "\'" + " or \'"
+                    + LIST_TYPE_REGIME + "\'" + " or \'"
+                    + LIST_TYPE_SCHEDULE  + "\'" + " or \'"
+                    + LIST_TYPE_SUGGESTION  + "\'");
         }
         return trimmedCategory;
     }
