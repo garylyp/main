@@ -2,9 +2,6 @@ package seedu.exercise.logic.commands;
 
 import static seedu.exercise.logic.commands.DeleteExerciseCommand.MESSAGE_USAGE_EXERCISE;
 import static seedu.exercise.logic.commands.DeleteRegimeCommand.MESSAGE_USAGE_REGIME;
-import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 
 /**
  * Represents a DeleteCommand with hidden internal logic and the ability to be executed.

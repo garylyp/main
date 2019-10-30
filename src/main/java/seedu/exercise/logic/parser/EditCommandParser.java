@@ -46,8 +46,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, commandPrefixes);
 
         if (!argMultimap.arePrefixesPresent(PREFIX_INDEX)
-                || !argMultimap.getPreamble().isEmpty()){
-            logger.info("Prefix not present or preamble not empty");
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
@@ -122,7 +121,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     private Prefix[] getPrefixes() {
         Set<Prefix> prefixes = new HashSet<>();
         prefixes.addAll(List.of(PREFIX_INDEX, PREFIX_NAME, PREFIX_DATE,
-                PREFIX_CALORIES, PREFIX_QUANTITY, PREFIX_UNIT));
+                PREFIX_CALORIES, PREFIX_QUANTITY, PREFIX_UNIT, PREFIX_MUSCLE));
 
         prefixes.addAll(Arrays.asList(getPropertyPrefixesSet()));
         return prefixes.toArray(new Prefix[prefixes.size()]);

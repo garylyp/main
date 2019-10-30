@@ -6,7 +6,6 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.commands.DeleteCommand;

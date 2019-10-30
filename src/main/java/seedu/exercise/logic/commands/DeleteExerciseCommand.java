@@ -24,9 +24,9 @@ public class DeleteExerciseCommand extends DeleteCommand implements PayloadCarri
 
     public static final String MESSAGE_USAGE_EXERCISE = "Parameters: INDEX (must be a positive integer)\n"
             + "\t\tExample: "
-            + COMMAND_WORD + " " +
-            PREFIX_CATEGORY + "exercise " +
-            PREFIX_INDEX + "1";
+            + COMMAND_WORD + " "
+            + PREFIX_CATEGORY + "exercise "
+            + PREFIX_INDEX + "1";
     public static final String MESSAGE_DELETE_EXERCISE_SUCCESS = "Deleted Exercise: %1$s";
     public static final String RESOURCE_TYPE = "exercise";
 

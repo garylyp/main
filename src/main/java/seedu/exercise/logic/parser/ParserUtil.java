@@ -7,7 +7,7 @@ import static seedu.exercise.logic.parser.AddCommandParser.ADD_CATEGORY_REGIME;
 import static seedu.exercise.logic.parser.ListCommandParser.LIST_TYPE_EXERCISE;
 import static seedu.exercise.logic.parser.ListCommandParser.LIST_TYPE_REGIME;
 import static seedu.exercise.logic.parser.ListCommandParser.LIST_TYPE_SCHEDULE;
-import static seedu.exercise.logic.parser.ListCommandParser.LIST_TYPE_SUGGESTION;
+import static seedu.exercise.logic.parser.ListCommandParser.LIST_TYPE_SUGGEST;
 import static seedu.exercise.logic.parser.SuggestCommandParser.SUGGEST_TYPE_BASIC;
 import static seedu.exercise.logic.parser.SuggestCommandParser.SUGGEST_TYPE_POSSIBLE;
 import static seedu.exercise.model.property.PropertyBook.getCustomProperties;
@@ -32,6 +32,7 @@ import seedu.exercise.model.property.Name;
 import seedu.exercise.model.property.ParameterType;
 import seedu.exercise.model.property.Quantity;
 import seedu.exercise.model.property.Unit;
+import seedu.exercise.ui.ListResourceType;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -205,20 +206,30 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code listType} is invalid
      */
-    public static String parseListType(String listType) throws ParseException {
+    public static ListResourceType parseListResourceType(String listType) throws ParseException {
         requireNonNull(listType);
         String trimmedCategory = listType.trim();
-        if (!(trimmedCategory.equals(LIST_TYPE_EXERCISE)
-                || trimmedCategory.equals(LIST_TYPE_REGIME)
-                || trimmedCategory.equals(LIST_TYPE_SCHEDULE)
-                || trimmedCategory.equals(LIST_TYPE_SUGGESTION))) {
+        switch (trimmedCategory) {
+        case LIST_TYPE_EXERCISE:
+            return ListResourceType.EXERCISE;
+
+        case LIST_TYPE_REGIME:
+            return ListResourceType.REGIME;
+
+        case LIST_TYPE_SCHEDULE:
+            return ListResourceType.SCHEDULE;
+
+        case LIST_TYPE_SUGGEST:
+            return ListResourceType.SUGGEST;
+
+        default:
             throw new ParseException("Category can only be \'"
                     + LIST_TYPE_EXERCISE + "\'" + " or \'"
                     + LIST_TYPE_REGIME + "\'" + " or \'"
-                    + LIST_TYPE_SCHEDULE  + "\'" + " or \'"
-                    + LIST_TYPE_SUGGESTION  + "\'");
+                    + LIST_TYPE_SCHEDULE + "\'" + " or \'"
+                    + LIST_TYPE_SUGGEST + "\'");
         }
-        return trimmedCategory;
+
     }
 
     /**

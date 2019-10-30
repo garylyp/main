@@ -2,7 +2,6 @@ package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.exercise.logic.parser.CliSyntax.PREFIX_SUGGEST_TYPE;
 import static seedu.exercise.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
 
 import seedu.exercise.model.Model;
@@ -23,17 +22,18 @@ public class ListCommand extends Command {
             + PREFIX_CATEGORY + "schedule";
     public static final String MESSAGE_SUCCESS = "Listed all %1$s items";
 
-    private String listType;
+    private ListResourceType listResourceType;
 
-    public ListCommand(String listType) {
-        this.listType = listType;
+    public ListCommand(ListResourceType listResourceType) {
+        this.listResourceType = listResourceType;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
-        return new CommandResult(MESSAGE_SUCCESS, ListResourceType.EXERCISE);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, listResourceType.toString().toLowerCase()),
+                ListResourceType.EXERCISE);
     }
 
 }

@@ -110,7 +110,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     private Prefix[] getPrefixes() {
         Set<Prefix> prefixes = new HashSet<>();
         prefixes.addAll(List.of(PREFIX_CATEGORY, PREFIX_INDEX, PREFIX_NAME, PREFIX_DATE,
-                PREFIX_CALORIES, PREFIX_QUANTITY, PREFIX_UNIT));
+                PREFIX_CALORIES, PREFIX_QUANTITY, PREFIX_UNIT, PREFIX_MUSCLE));
 
         // Includes any custom properties that have been added
         prefixes.addAll(Arrays.asList(getPropertyPrefixesSet()));
