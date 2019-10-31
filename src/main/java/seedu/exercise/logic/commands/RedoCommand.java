@@ -11,6 +11,8 @@ import seedu.exercise.logic.commands.events.EditEvent;
 import seedu.exercise.logic.commands.events.EditRegimeEvent;
 import seedu.exercise.logic.commands.events.Event;
 import seedu.exercise.logic.commands.events.EventHistory;
+import seedu.exercise.logic.commands.events.ScheduleCompleteEvent;
+import seedu.exercise.logic.commands.events.ScheduleRegimeEvent;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.ui.ListResourceType;
@@ -41,11 +43,14 @@ public class RedoCommand extends Command {
         //TODO Refactor this out for v1.4!!!!!!!!!!!!!!!!!! I want to puke looking at this code.
         ListResourceType type = ListResourceType.NULL;
         if (eventToRedo instanceof AddExerciseEvent || eventToRedo instanceof DeleteExerciseEvent
-                || eventToRedo instanceof EditEvent || eventToRedo instanceof ClearEvent) {
+                || eventToRedo instanceof EditEvent || eventToRedo instanceof ClearEvent
+                || eventToRedo instanceof ScheduleCompleteEvent) {
             type = ListResourceType.EXERCISE;
         } else if (eventToRedo instanceof AddRegimeEvent || eventToRedo instanceof DeleteRegimeEvent
                 || eventToRedo instanceof EditRegimeEvent) {
             type = ListResourceType.REGIME;
+        } else if (eventToRedo instanceof ScheduleRegimeEvent) {
+            type = ListResourceType.SCHEDULE;
         }
 
         return new CommandResult(

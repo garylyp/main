@@ -228,10 +228,8 @@ public class ModelManager implements Model {
     @Override
     public void completeSchedule(Schedule schedule) {
         requireNonNull(schedule);
-
         scheduleBook.removeResource(schedule);
-        Collection<Exercise> scheduledExercises = DateChangerUtil
-            .changeAllDate(schedule.getExercises(), schedule.getDate());
+        Collection<Exercise> scheduledExercises = schedule.getExercises();
         for (Exercise exercise : scheduledExercises) {
             if (!exerciseBook.hasResource(exercise)) {
                 exerciseBook.addResource(exercise);

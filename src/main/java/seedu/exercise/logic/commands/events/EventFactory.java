@@ -8,9 +8,13 @@ import seedu.exercise.logic.commands.DeleteCommand;
 import seedu.exercise.logic.commands.DeleteExerciseCommand;
 import seedu.exercise.logic.commands.DeleteRegimeCommand;
 import seedu.exercise.logic.commands.EditCommand;
+import seedu.exercise.logic.commands.ScheduleCommand;
+import seedu.exercise.logic.commands.ScheduleCompleteCommand;
+import seedu.exercise.logic.commands.ScheduleRegimeCommand;
 import seedu.exercise.logic.commands.UndoableCommand;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.model.resource.Schedule;
 
 /**
  * A utility class to generate specific Event objects depending on requirements.
@@ -19,7 +23,7 @@ public class EventFactory {
 
     public static final String MESSAGE_COMMAND_NOT_UNDOABLE =
         "The command \'%1$s\' cannot be stored as an undoable event.";
-    public static final String MESSAGE_COMMAND_RESOURCE_TYPE_NOT_FOUND =
+    public static final String MESSAGE_UNIQUE_IDENTIFIER_NOT_FOUND =
             "The resource type \'%1$s\' of the \'%2$s\' command is not known.";
 
     /**
@@ -46,9 +50,32 @@ public class EventFactory {
         case ClearCommand.COMMAND_WORD:
             return new ClearEvent(((ClearCommand) command).getPayload());
 
+        case ScheduleCommand.COMMAND_WORD:
+            return generateEventFromScheduleCommand((ScheduleCommand) command);
+
         default:
             throw new CommandException(
                     String.format(MESSAGE_COMMAND_NOT_UNDOABLE, commandWord));
+        }
+    }
+
+    private static Event generateEventFromScheduleCommand(ScheduleCommand command) throws CommandException {
+        String resourceType = command.getCommandTypeIdentifier();
+        EventPayload<Schedule> eventPayload;
+        switch (resourceType) {
+        case ScheduleRegimeCommand.UNIQUE_IDENTIFIER:
+            eventPayload = ((ScheduleRegimeCommand) command).getPayload();
+            return new ScheduleRegimeEvent(eventPayload);
+
+        case ScheduleCompleteCommand.UNIQUE_IDENTIFIER:
+            eventPayload = ((ScheduleCompleteCommand) command).getPayload();
+            return new ScheduleCompleteEvent(eventPayload);
+
+        default:
+            throw new CommandException(
+                    String.format(MESSAGE_UNIQUE_IDENTIFIER_NOT_FOUND,
+                            resourceType,
+                            command.getUndoableCommandWord()));
         }
     }
 
@@ -60,7 +87,7 @@ public class EventFactory {
      * that can be undone or redone
      */
     protected static Event generateEventFromAddCommand(AddCommand command) throws CommandException {
-        String resourceType = command.getResourceType();
+        String resourceType = command.getCommandTypeIdentifier();
         switch (resourceType) {
         case AddExerciseCommand.RESOURCE_TYPE:
             EventPayload<Exercise> eventPayload = ((AddExerciseCommand) command).getPayload();
@@ -80,7 +107,7 @@ public class EventFactory {
 
         default:
             throw new CommandException(
-                    String.format(MESSAGE_COMMAND_RESOURCE_TYPE_NOT_FOUND,
+                    String.format(MESSAGE_UNIQUE_IDENTIFIER_NOT_FOUND,
                             resourceType,
                             command.getUndoableCommandWord()));
         }
@@ -94,7 +121,7 @@ public class EventFactory {
      * that can be undone or redone
      */
     protected static Event generateEventFromDeleteCommand(DeleteCommand command) throws CommandException {
-        String resourceType = command.getResourceType();
+        String resourceType = command.getCommandTypeIdentifier();
         switch (resourceType) {
         case DeleteExerciseCommand.RESOURCE_TYPE:
             EventPayload<Exercise> eventPayload = ((DeleteExerciseCommand) command).getPayload();
@@ -114,7 +141,7 @@ public class EventFactory {
 
         default:
             throw new CommandException(
-                    String.format(MESSAGE_COMMAND_RESOURCE_TYPE_NOT_FOUND,
+                    String.format(MESSAGE_UNIQUE_IDENTIFIER_NOT_FOUND,
                             resourceType,
                             command.getUndoableCommandWord()));
         }

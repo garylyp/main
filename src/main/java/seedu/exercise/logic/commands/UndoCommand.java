@@ -11,6 +11,8 @@ import seedu.exercise.logic.commands.events.EditEvent;
 import seedu.exercise.logic.commands.events.EditRegimeEvent;
 import seedu.exercise.logic.commands.events.Event;
 import seedu.exercise.logic.commands.events.EventHistory;
+import seedu.exercise.logic.commands.events.ScheduleCompleteEvent;
+import seedu.exercise.logic.commands.events.ScheduleRegimeEvent;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.ui.ListResourceType;
@@ -47,6 +49,8 @@ public class UndoCommand extends Command {
         } else if (eventToUndo instanceof AddRegimeEvent || eventToUndo instanceof DeleteRegimeEvent
                 || eventToUndo instanceof EditRegimeEvent) {
             type = ListResourceType.REGIME;
+        } else if (eventToUndo instanceof ScheduleCompleteEvent || eventToUndo instanceof ScheduleRegimeEvent) {
+            type = ListResourceType.SCHEDULE;
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventToUndo), type);
