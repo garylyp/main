@@ -28,7 +28,7 @@ public class EditEvent implements Event {
      *
      * @param eventPayload a wrapper class that stores the essential information for undo and redo
      */
-    public EditEvent(EventPayload<? super Exercise> eventPayload) {
+    public EditEvent(EventPayload<Exercise> eventPayload) {
         this.originalExercise = (Exercise) eventPayload.get(KEY_ORIGINAL_EXERCISE);
         this.editedExercise = (Exercise) eventPayload.get(KEY_EDITED_EXERCISE);
     }

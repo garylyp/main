@@ -8,6 +8,7 @@ import seedu.exercise.logic.commands.DeleteCommand;
 import seedu.exercise.logic.commands.DeleteExerciseCommand;
 import seedu.exercise.logic.commands.DeleteRegimeCommand;
 import seedu.exercise.logic.commands.EditCommand;
+import seedu.exercise.logic.commands.ResolveCommand;
 import seedu.exercise.logic.commands.ScheduleCommand;
 import seedu.exercise.logic.commands.ScheduleCompleteCommand;
 import seedu.exercise.logic.commands.ScheduleRegimeCommand;
@@ -52,6 +53,9 @@ public class EventFactory {
 
         case ScheduleCommand.COMMAND_WORD:
             return generateEventFromScheduleCommand((ScheduleCommand) command);
+
+        case ResolveCommand.COMMAND_WORD:
+            return new ResolveEvent(((ResolveCommand) command).getPayload());
 
         default:
             throw new CommandException(

@@ -1,9 +1,7 @@
 package seedu.exercise.logic.commands.events;
 
 import java.util.Collection;
-import java.util.logging.Logger;
 
-import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;
@@ -18,7 +16,6 @@ public class ScheduleCompleteEvent implements Event {
     private static final String EVENT_DESCRIPTION = "Completed: Regime %1$s\nOn: %2$s";
 
     private final Schedule toComplete;
-    private final Logger logger = LogsCenter.getLogger(ScheduleCompleteEvent.class);
 
     /**
      * Creates an ScheduleCompleteEvent to store the particular event of a schedule being marked as completed.
@@ -59,7 +56,6 @@ public class ScheduleCompleteEvent implements Event {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ScheduleCompleteEvent // instanceof handles nulls
-                && toComplete.equals(((ScheduleCompleteEvent) other).toComplete)
                 && toComplete.equals(((ScheduleCompleteEvent) other).toComplete));
     }
 }

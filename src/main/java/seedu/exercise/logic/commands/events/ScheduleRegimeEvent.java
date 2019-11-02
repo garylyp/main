@@ -9,7 +9,7 @@ import seedu.exercise.model.resource.Schedule;
 public class ScheduleRegimeEvent implements Event {
 
     public static final String KEY_TO_SCHEDULE = "toSchedule";
-    private static final String EVENT_DESCRIPTION = "Schedule: Regime %1$s\nOn: %2$s";
+    private static final String EVENT_DESCRIPTION = "Scheduled: Regime %1$s\nOn: %2$s";
 
     private final Schedule toSchedule;
 
@@ -43,7 +43,6 @@ public class ScheduleRegimeEvent implements Event {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ScheduleRegimeEvent // instanceof handles nulls
-                && toSchedule.equals(((ScheduleRegimeEvent) other).toSchedule)
                 && toSchedule.equals(((ScheduleRegimeEvent) other).toSchedule));
     }
 }

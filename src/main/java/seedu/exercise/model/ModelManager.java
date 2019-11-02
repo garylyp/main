@@ -245,22 +245,24 @@ public class ModelManager implements Model {
     //===================Conflicts===============================================================
 
     @Override
-    public void resolveConflict(Name regimeName, List<Index> indexFromSchedule, List<Index> indexFromConflict) {
+    public Schedule resolveConflict(Name regimeName, List<Index> indexFromSchedule, List<Index> indexFromConflict) {
         requireAllNonNull(regimeName, indexFromSchedule, indexFromConflict);
         requireMainAppState(State.IN_CONFLICT);
 
         removeOldSchedule();
-
+        Schedule resolvedSchedule;
         if (areListsEmpty(indexFromConflict, indexFromSchedule)) {
             Regime regime = new Regime(regimeName, new UniqueResourceList<>());
-            addResolvedSchedule(conflict.getScheduleByRegime(regime));
+            resolvedSchedule = conflict.getScheduleByRegime(regime);
+            addResolvedSchedule(resolvedSchedule);
         } else {
             UniqueResourceList<Exercise> resolvedExercises =
                 getResolvedExerciseList(indexFromSchedule, indexFromConflict);
-            Schedule resolvedSchedule = getResolvedSchedule(regimeName, resolvedExercises);
+            resolvedSchedule = getResolvedSchedule(regimeName, resolvedExercises);
             addCombinedRegime(resolvedSchedule.getRegime());
             addResolvedSchedule(resolvedSchedule);
         }
+        return resolvedSchedule;
     }
 
     @Override

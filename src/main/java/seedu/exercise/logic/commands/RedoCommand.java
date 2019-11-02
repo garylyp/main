@@ -11,6 +11,7 @@ import seedu.exercise.logic.commands.events.EditEvent;
 import seedu.exercise.logic.commands.events.EditRegimeEvent;
 import seedu.exercise.logic.commands.events.Event;
 import seedu.exercise.logic.commands.events.EventHistory;
+import seedu.exercise.logic.commands.events.ResolveEvent;
 import seedu.exercise.logic.commands.events.ScheduleCompleteEvent;
 import seedu.exercise.logic.commands.events.ScheduleRegimeEvent;
 import seedu.exercise.logic.commands.exceptions.CommandException;
@@ -49,7 +50,7 @@ public class RedoCommand extends Command {
         } else if (eventToRedo instanceof AddRegimeEvent || eventToRedo instanceof DeleteRegimeEvent
                 || eventToRedo instanceof EditRegimeEvent) {
             type = ListResourceType.REGIME;
-        } else if (eventToRedo instanceof ScheduleRegimeEvent) {
+        } else if (eventToRedo instanceof ScheduleRegimeEvent || eventToRedo instanceof ResolveEvent) {
             type = ListResourceType.SCHEDULE;
         }
 

@@ -56,7 +56,7 @@ public class Schedule extends Resource {
 
     @Override
     public String toString() {
-        return date.toString() + "\n" + regime.toString();
+        return String.format("%s (%s)\n%s", getRegimeName(), date.toString(), regime.toString());
     }
 
     @Override
