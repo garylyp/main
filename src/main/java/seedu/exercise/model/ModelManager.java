@@ -9,6 +9,7 @@ import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultProper
 
 import java.nio.file.Path;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.commons.core.State;
@@ -283,11 +285,13 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Exercise} backed by the internal list of
-     * {@code exerciseBook}.
+     * {@code exerciseBook} and sorted by Date.
      */
     @Override
     public ObservableList<Exercise> getFilteredExerciseList() {
-        return filteredExercises;
+        SortedList<Exercise> sortedExercises = new SortedList<>(filteredExercises, (o1, o2)
+            -> -o1.getDate().value.compareTo(o2.getDate().value));
+        return sortedExercises;
     }
 
 
@@ -298,7 +302,10 @@ public class ModelManager implements Model {
      * {@code regimeBook}.
      */
     public ObservableList<Regime> getFilteredRegimeList() {
-        return filteredRegimes;
+        SortedList<Regime> sortedRegimes = new SortedList<>(filteredRegimes,
+                Comparator.comparing(
+                    o -> o.getRegimeName().toString()));
+        return sortedRegimes;
     }
 
 
@@ -309,7 +316,9 @@ public class ModelManager implements Model {
      * {@code scheduleBook}
      */
     public ObservableList<Schedule> getFilteredScheduleList() {
-        return filteredSchedules;
+        SortedList<Schedule> sortedSchedules = new SortedList<>(filteredSchedules,
+                Comparator.comparing(o -> o.getDate().value));
+        return sortedSchedules;
     }
 
     //=========== Property Manager Accessors =============================================================
