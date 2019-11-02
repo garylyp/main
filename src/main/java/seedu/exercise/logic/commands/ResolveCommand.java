@@ -118,6 +118,9 @@ public class ResolveCommand extends Command implements UndoableCommand, PayloadC
                 && indexToTakeFromSchedule.equals(otherCommand.indexToTakeFromSchedule);
     }
 
+    /**
+     * Calls the model to resolve the conflict and return a resolved Schedule object
+     */
     private Schedule resolveConflict(Model model) {
         requireNonNull(model);
         Schedule resolvedSchedule = model.resolveConflict(regimeName,

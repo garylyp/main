@@ -52,7 +52,7 @@ public class ResolveEvent implements Event {
      * when the resolve command is executed. The regime is created if the regime in the resolved schedule
      * is NOT in any of the two schedules in conflict.
      *
-     * @return true if the regime newly created when the resolve is executed, false otherwise
+     * @return true if the regime is newly created when the resolve is executed, false otherwise
      */
     private boolean isNewRegimeCreated() {
         return !(resolvedSchedule.getRegime().equals(conflict.getScheduled().getRegime())

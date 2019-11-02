@@ -3,6 +3,7 @@ package seedu.exercise.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.testutil.Assert.assertThrows;
+import static seedu.exercise.testutil.typicalutil.TypicalSchedule.VALID_SCHEDULE_CARDIO_DATE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -92,7 +93,7 @@ public class ResolveCommandTest {
     }
 
     @Test
-    public void execute_indexesOutOfBounds_throwsCommandExceptino() {
+    public void execute_indexesOutOfBounds_throwsCommandException() {
         assertThrows(CommandException.class, () -> validResolveCommandWithOutOfBoundIndexes
                 .execute(new ModelStubForTakingOneSchedule()));
     }
@@ -201,8 +202,8 @@ public class ResolveCommandTest {
         }
 
         @Override
-        public void resolveConflict(Name regimeName, List<Index> indexFromSchedule, List<Index> indexFromConflict) {
-
+        public Schedule resolveConflict(Name regimeName, List<Index> indexFromSchedule, List<Index> indexFromConflict) {
+            return null;
         }
     }
 
@@ -226,8 +227,8 @@ public class ResolveCommandTest {
         }
 
         @Override
-        public void resolveConflict(Name regimeName, List<Index> indexFromSchedule, List<Index> indexFromConflict) {
-
+        public Schedule resolveConflict(Name regimeName, List<Index> indexFromSchedule, List<Index> indexFromConflict) {
+            return VALID_SCHEDULE_CARDIO_DATE;
         }
     }
 }

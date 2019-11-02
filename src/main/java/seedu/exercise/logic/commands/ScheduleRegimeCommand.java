@@ -5,7 +5,6 @@ import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.exercise.logic.commands.events.ScheduleRegimeEvent.KEY_TO_SCHEDULE;
 
 import java.util.Collection;
-import java.util.List;
 
 import seedu.exercise.MainApp;
 import seedu.exercise.commons.core.State;

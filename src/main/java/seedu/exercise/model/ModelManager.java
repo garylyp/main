@@ -30,7 +30,6 @@ import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
-import seedu.exercise.model.util.DateChangerUtil;
 
 /**
  * Represents the in-memory model of the exercise book data.

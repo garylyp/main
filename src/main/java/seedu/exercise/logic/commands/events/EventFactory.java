@@ -63,6 +63,13 @@ public class EventFactory {
         }
     }
 
+    /**
+     * Generates a schedule regime or schedule complete event based on the command type.
+     *
+     * @param command a {@link ScheduleCommand} to be represented with using an Event object
+     * @return a {@link ScheduleRegimeEvent} or a {@link ScheduleCompleteEvent}
+     * that can be undone or redone
+     */
     private static Event generateEventFromScheduleCommand(ScheduleCommand command) throws CommandException {
         String resourceType = command.getCommandTypeIdentifier();
         EventPayload<Schedule> eventPayload;
@@ -86,8 +93,8 @@ public class EventFactory {
     /**
      * Generates a add exercise or add regime event based on the command type.
      *
-     * @param command a {@code AddCommand} to be represented with using an Event object
-     * @return an {@code AddExerciseEvent}, {@code AddRegimeEvent} or {@code EditRegimeEvent}
+     * @param command a {@link AddCommand} to be represented with using an Event object
+     * @return an {@link AddExerciseEvent}, {@link AddRegimeEvent} or {@link EditRegimeEvent}
      * that can be undone or redone
      */
     protected static Event generateEventFromAddCommand(AddCommand command) throws CommandException {
@@ -120,8 +127,8 @@ public class EventFactory {
     /**
      * Generates a delete exercise or delete regime event based on the command type.
      *
-     * @param command a {@code DeleteCommand} to be represented with using an Event object
-     * @return an {@code DeleteExerciseEvent}, {@code DeleteRegimeEvent} or {@code EditRegimeEvent}
+     * @param command a {@link DeleteCommand} to be represented with using an Event object
+     * @return an {@link DeleteExerciseEvent}, {@link DeleteRegimeEvent} or {@link EditRegimeEvent}
      * that can be undone or redone
      */
     protected static Event generateEventFromDeleteCommand(DeleteCommand command) throws CommandException {
