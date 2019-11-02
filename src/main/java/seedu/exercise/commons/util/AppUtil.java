@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import javafx.scene.image.Image;
 import seedu.exercise.MainApp;
+import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.commons.core.State;
 
 /**

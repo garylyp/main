@@ -1,4 +1,4 @@
-package seedu.exercise.logic.commands.events;
+package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;

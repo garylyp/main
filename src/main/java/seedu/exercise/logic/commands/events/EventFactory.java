@@ -46,7 +46,7 @@ public class EventFactory {
             return generateEventFromDeleteCommand((DeleteCommand) command);
 
         case EditCommand.COMMAND_WORD:
-            return new EditEvent(((EditCommand) command).getPayload());
+            return new EditExerciseEvent(((EditCommand) command).getPayload());
 
         case ClearCommand.COMMAND_WORD:
             return new ClearEvent(((ClearCommand) command).getPayload());
@@ -70,7 +70,7 @@ public class EventFactory {
      * @return a {@link ScheduleRegimeEvent} or a {@link ScheduleCompleteEvent}
      * that can be undone or redone
      */
-    private static Event generateEventFromScheduleCommand(ScheduleCommand command) throws CommandException {
+    static Event generateEventFromScheduleCommand(ScheduleCommand command) throws CommandException {
         String resourceType = command.getCommandTypeIdentifier();
         EventPayload<Schedule> eventPayload;
         switch (resourceType) {
