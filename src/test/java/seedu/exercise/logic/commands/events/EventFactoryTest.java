@@ -6,7 +6,6 @@ import static seedu.exercise.logic.commands.events.EventTestUtil.ADD_EXERCISE_EV
 import static seedu.exercise.logic.commands.events.EventTestUtil.ADD_REGIME_COMMAND_WITH_ADD_PAYLOAD;
 import static seedu.exercise.logic.commands.events.EventTestUtil.ADD_REGIME_COMMAND_WITH_EDIT_ONE_PAYLOAD;
 import static seedu.exercise.logic.commands.events.EventTestUtil.ADD_REGIME_EVENT_PAYLOAD;
-import static seedu.exercise.logic.commands.events.EventTestUtil.SCHEDULE_COMPLETE_LEVEL_ONE_REGIME_EVENT_PAYLOAD;
 import static seedu.exercise.logic.commands.events.EventTestUtil.DELETE_EXERCISE_COMMAND_WITH_PAYLOAD;
 import static seedu.exercise.logic.commands.events.EventTestUtil.DELETE_EXERCISE_EVENT_PAYLOAD;
 import static seedu.exercise.logic.commands.events.EventTestUtil.DELETE_REGIME_COMMAND_WITH_DELETE_PAYLOAD;
@@ -17,6 +16,7 @@ import static seedu.exercise.logic.commands.events.EventTestUtil.EDIT_EXERCISE_E
 import static seedu.exercise.logic.commands.events.EventTestUtil.EDIT_REGIME_BY_ADD_EVENT_ONE_PAYLOAD;
 import static seedu.exercise.logic.commands.events.EventTestUtil.EDIT_REGIME_BY_DELETE_EVENT_ONE_PAYLOAD;
 import static seedu.exercise.logic.commands.events.EventTestUtil.SCHEDULE_COMPLETE_COMMAND_LEVEL_ONE_REGIME_DATE_1_WITH_PAYLOAD;
+import static seedu.exercise.logic.commands.events.EventTestUtil.SCHEDULE_COMPLETE_LEVEL_ONE_REGIME_EVENT_PAYLOAD;
 import static seedu.exercise.logic.commands.events.EventTestUtil.SCHEDULE_LEVEL_ONE_REGIME_EVENT_PAYLOAD;
 import static seedu.exercise.logic.commands.events.EventTestUtil.SCHEDULE_REGIME_COMMAND_LEVEL_ONE_REGIME_DATE_1_WITH_PAYLOAD;
 import static seedu.exercise.logic.commands.events.EventTestUtil.assertGeneratedAddEventEquals;

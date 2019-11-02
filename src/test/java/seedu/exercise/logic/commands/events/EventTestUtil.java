@@ -16,7 +16,6 @@ import static seedu.exercise.logic.commands.events.ResolveEvent.KEY_RESOLVED_SCH
 import static seedu.exercise.logic.commands.events.ScheduleCompleteEvent.KEY_TO_COMPLETE;
 import static seedu.exercise.logic.commands.events.ScheduleRegimeEvent.KEY_TO_SCHEDULE;
 import static seedu.exercise.testutil.CommonTestData.VALID_CALORIES_BASKETBALL;
-import static seedu.exercise.testutil.CommonTestData.VALID_DATE;
 import static seedu.exercise.testutil.typicalutil.TypicalDates.DATE_1;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.WALK;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;

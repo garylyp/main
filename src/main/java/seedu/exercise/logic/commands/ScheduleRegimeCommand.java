@@ -60,7 +60,6 @@ public class ScheduleRegimeCommand extends ScheduleCommand implements PayloadCar
         }
 
         schedule(model, toSchedule);
-        assert(toSchedule != null);
         eventPayload.put(KEY_TO_SCHEDULE, toSchedule);
         EventHistory.getInstance().addCommandToUndoStack(this);
         return new CommandResult(String.format(MESSAGE_SUCCESS, regime.getRegimeName(), dateToSchedule),

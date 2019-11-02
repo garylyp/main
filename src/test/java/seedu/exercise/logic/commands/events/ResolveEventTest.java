@@ -10,7 +10,6 @@ import static seedu.exercise.logic.commands.events.EventTestUtil.RESOLVE_LEVEL_O
 import static seedu.exercise.logic.commands.events.EventTestUtil.assertRedoEventSuccess;
 import static seedu.exercise.logic.commands.events.EventTestUtil.assertUndoEventSuccess;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -50,7 +49,7 @@ public class ResolveEventTest {
         expectedModel.addRegime(LEVEL_THREE_REGIME);
         expectedModel.addSchedule(LEVEL_THREE_REGIME_DATE_1_SCHEDULE);
 
-        actualModel.addRegime(LEVEL_THREE_REGIME);                      // Simulates the resolved state
+        actualModel.addRegime(LEVEL_THREE_REGIME); // Simulates the resolved state
         actualModel.addSchedule(LEVEL_THREE_REGIME_DATE_1_SCHEDULE);
 
         resolveEvent.undo(actualModel);
