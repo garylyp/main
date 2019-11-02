@@ -13,8 +13,6 @@ import static seedu.exercise.logic.commands.events.EventTestUtil.assertUndoEvent
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.exercise.MainApp;
-import seedu.exercise.commons.core.State;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 
@@ -25,7 +23,6 @@ public class ResolveEventTest {
 
     @BeforeEach
     public void setUp() {
-        MainApp.setState(State.IN_CONFLICT);
         expectedModel = new ModelManager();
         actualModel = new ModelManager();
         expectedModel.setConflict(LEVEL_ONE_AND_TWO_REGIME_DATE_1_CONFLICT);
