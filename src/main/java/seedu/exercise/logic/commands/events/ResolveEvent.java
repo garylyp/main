@@ -11,7 +11,7 @@ public class ResolveEvent implements Event {
 
     public static final String KEY_RESOLVED_SCHEDULE = "resolvedSchedule";
     public static final String KEY_CONFLICT = "conflict";
-    private static final String EVENT_DESCRIPTION = "Scheduled: Regime %1$s\nOn: %2$s";
+    private static final String EVENT_DESCRIPTION = "Scheduled: Regime %1$s on %2$s";
 
     private final Schedule resolvedSchedule;
     private final Conflict conflict;

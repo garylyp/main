@@ -380,6 +380,7 @@ public class MainWindow extends UiPart<Stage> {
         if (!(isResourceListPanelShown(exerciseListTabPlaceholder))) {
             infoDisplayPanel.showDefaultMessage();
         }
+        exerciseListPanel.resetListSelection();
         resourceListPanelPlaceholder.getSelectionModel().select(exerciseListTabPlaceholder);
     }
 
@@ -390,6 +391,7 @@ public class MainWindow extends UiPart<Stage> {
         if (!(isResourceListPanelShown(regimeListTabPlaceholder))) {
             infoDisplayPanel.showDefaultMessage();
         }
+        regimeListPanel.resetListSelection();
         resourceListPanelPlaceholder.getSelectionModel().select(regimeListTabPlaceholder);
     }
 
@@ -400,6 +402,7 @@ public class MainWindow extends UiPart<Stage> {
         if (!(isResourceListPanelShown(scheduleListTabPlaceholder))) {
             infoDisplayPanel.showDefaultMessage();
         }
+        scheduleListPanel.resetListSelection();
         resourceListPanelPlaceholder.getSelectionModel().select(scheduleListTabPlaceholder);
     }
 
@@ -410,6 +413,7 @@ public class MainWindow extends UiPart<Stage> {
         if (!(isResourceListPanelShown(suggestionListTabPlaceholder))) {
             infoDisplayPanel.showDefaultMessage();
         }
+        suggestionListPanel.resetListSelection();
         resourceListPanelPlaceholder.getSelectionModel().select(suggestionListTabPlaceholder);
     }
 

@@ -13,7 +13,7 @@ import seedu.exercise.model.resource.Schedule;
 public class ScheduleCompleteEvent implements Event {
 
     public static final String KEY_TO_COMPLETE = "toComplete";
-    private static final String EVENT_DESCRIPTION = "Completed: Regime %1$s\nOn: %2$s";
+    private static final String EVENT_DESCRIPTION = "Completed: Regime %1$s on %2$s";
 
     private final Schedule toComplete;
 

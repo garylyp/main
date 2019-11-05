@@ -9,7 +9,7 @@ import seedu.exercise.model.resource.Regime;
 public class DeleteRegimeEvent implements Event {
 
     public static final String KEY_REGIME_TO_DELETE = "regimeToDelete";
-    private static final String EVENT_DESCRIPTION = "Delete regime: %1$s\n%2$s";
+    private static final String EVENT_DESCRIPTION = "Delete regime: %1$s";
 
     private final Regime regimeToDelete;
 
@@ -36,8 +36,7 @@ public class DeleteRegimeEvent implements Event {
     @Override
     public String toString() {
         return String.format(EVENT_DESCRIPTION,
-                regimeToDelete.getRegimeName(),
-                regimeToDelete);
+                regimeToDelete.getRegimeName());
     }
 
     @Override
