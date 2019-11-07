@@ -346,6 +346,7 @@ image::BarChart.png[width="500"]
 
 // end::statistic[]
 
+// tag::undo[]
 [[undocommand]]
 === Undo previous command: `undo`
 
@@ -353,7 +354,6 @@ Undo the previous successful command entered.
 
 ****
 Supported Undoable Commands: add, delete, edit, clear, schedule, resolve
-
 
 * `add t/exercise n/Push ups d/1/10/2019 c/123 q/100 u/reps`
 * `add t/regime n/Cardio i/1 i/3 i/5`
@@ -371,7 +371,10 @@ Supported Undoable Commands: add, delete, edit, clear, schedule, resolve
 If there is no previous command, undo will do nothing.
 
 Format: `undo`
+// end::undo[]
 
+
+// tag::undoredoexample[]
 Example:
 
 * Undoing a `delete t/regime [i/INDEX]...` command that deletes exercise from an existing regime. +
@@ -385,10 +388,10 @@ Deletes the fifth exercise `Hiking` from the regime `Level 3` +
 image::DeleteExerciseFromRegimeUndo.png[]
 
 **Step 2**: `undo` +
-The exercise `Hiking` is added back to the regime `Level 3` +
+Adds the exercise `Hiking` back to the regime `Level 3` +
 
 image::DeleteExerciseFromRegimeUndoOutcome.png[]
-
+// end::undoredoexample[]
 {sp} +
 {sp} +
 
@@ -426,19 +429,19 @@ image::ScheduleRegimeUndo.png[]
 
 
 
-
+// tag::redo[]
 === Redo undone command: `redo`
 
-Redo the previous command that was undone by user. Since a redo command can only be executed after
-successful executions of the undo command, it makes sense that only Undoable commands can be redone.
-For a list of Undoable commands, refer to the <<undocommand, Undo Command>>.
+Redo the previous command that was undone by the user. It can only be executed after
+successful executions of the undo command. For a list of Undoable commands, refer
+to the <<undocommand, Undo Command>>.
 
 [TIP]
 If the `Undo` command has not been executed after the execution of the last Undoable command, there will be
 no command to redo.
 
 Format: `redo`
-
+// end::redo[]
 Example:
 
 * Redoing a `add t/exercise` command that has just been undone. +

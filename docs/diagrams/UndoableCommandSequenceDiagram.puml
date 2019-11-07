@@ -33,7 +33,7 @@ activate EditCommand
         activate EventFactory
 
             create EditEvent
-            EventFactory -> EditEvent : editEvent(payload)
+            EventFactory -> EditEvent : EditEvent(payload)
             activate EditEvent
 
 
