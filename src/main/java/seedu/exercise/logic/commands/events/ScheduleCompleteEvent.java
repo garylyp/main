@@ -6,7 +6,7 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Schedule;
-
+//@@author garylyp
 /**
  * Represents a particular schedule complete event that can be redone or undone.
  */

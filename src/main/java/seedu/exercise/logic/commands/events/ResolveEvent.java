@@ -3,7 +3,7 @@ package seedu.exercise.logic.commands.events;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.resource.Schedule;
-
+//@@author garylyp
 /**
  * Represents a particular resolve schedule conflict event that can be redone or undone.
  */

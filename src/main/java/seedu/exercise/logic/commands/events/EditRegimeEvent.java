@@ -2,7 +2,7 @@ package seedu.exercise.logic.commands.events;
 
 import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Regime;
-
+//@@author garylyp
 /**
  * Represents a particular edit regime event that can be redone or undone. Edit regime events
  * are induced using AddRegimeCommand or DeleteRegimeCommand on an existing command.
