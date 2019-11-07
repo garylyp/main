@@ -249,6 +249,9 @@ Deletes the entire regime named legs
 
 Clears all entries from the exercise tracker.
 
+[TIP]
+Exercise tracker must not be empty when the clear command is executed.
+
 Format: `clear`
 
 Example:

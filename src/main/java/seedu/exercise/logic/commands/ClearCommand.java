@@ -37,7 +37,7 @@ public class ClearCommand extends Command implements UndoableCommand, PayloadCar
 
         model.setExerciseBook(new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR));
         model.updateStatistic();
-        return new CommandResult(MESSAGE_SUCCESS, ListResourceType.SUGGESTION);
+        return new CommandResult(MESSAGE_SUCCESS, ListResourceType.EXERCISE);
     }
 
     @Override

@@ -2,12 +2,15 @@ package seedu.exercise.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
+import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.model.resource.Resource;
 
 /**
@@ -93,17 +96,22 @@ public abstract class ResourceListPanel extends UiPart<Region> {
             @Override
             public void onChanged(Change<? extends Resource> change) {
                 int index = -1;
+                Logger logger = LogsCenter.getLogger(ResourceListPanel.class);
                 while (change.next()) {
                     if (change.wasReplaced()) {
+                        logger.info("Was replaced" + index);
                         index = change.getFrom();
                         break;
                     } else if (change.wasAdded()) {
+                        logger.info("Was added" + index);
                         index = change.getFrom();
                         break;
                     } else if (change.wasRemoved()) {
+                        logger.info("Was removed" + index);
                         index = change.getFrom();
                         break;
                     } else if (change.wasUpdated()) {
+                        logger.info("Was updated" + index);
                         index = change.getFrom();
                         break;
                     }
