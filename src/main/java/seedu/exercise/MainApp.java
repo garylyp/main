@@ -29,6 +29,7 @@ import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
+import seedu.exercise.model.util.DefaultExerciseDatabaseUtil;
 import seedu.exercise.model.util.SampleDataUtil;
 import seedu.exercise.storage.JsonPropertyBookStorage;
 import seedu.exercise.storage.JsonUserPrefsStorage;
@@ -92,6 +93,7 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
+        setState(State.NORMAL);
     }
 
     /**
@@ -148,12 +150,12 @@ public class MainApp extends Application {
         try {
             exerciseBookOptional = storage.readExerciseBook(path);
             if (exerciseBookOptional.isEmpty()) {
-                logger.info("Data file not found. Will be starting with a sample ExerciseBook");
+                logger.info("Data file not found. Will be starting with a sample exercise database book");
             }
-            exerciseData = exerciseBookOptional.orElseGet(SampleDataUtil::getSampleExerciseBook);
+            exerciseData = exerciseBookOptional.orElseGet(DefaultExerciseDatabaseUtil::getExerciseDatabaseBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in correct format. Will be starting with an empty ExerciseBook");
-            exerciseData = new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR);
+            logger.warning("Data file not in correct format. Will be starting with a sample exercise database book");
+            exerciseData = DefaultExerciseDatabaseUtil.getExerciseDatabaseBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ExerciseBook");
             exerciseData = new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR);
@@ -303,6 +305,8 @@ public class MainApp extends Application {
      */
     public static void setState(State newState) {
         requireAllNonNull(newState);
+        logger.info("Application state changing from " + getState() + " to " + newState.toString());
+
         state = newState;
     }
 }

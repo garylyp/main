@@ -19,6 +19,7 @@ import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.resource.Resource;
+import seedu.exercise.ui.util.ChartUtil;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -142,7 +143,7 @@ public class MainWindow extends UiPart<Stage> {
         infoDisplayPanel = new InfoDisplayPanel();
         infoDisplayPanelPlaceholder.getChildren().add(infoDisplayPanel.getRoot());
 
-        initListenersForResourceListPanels();
+        initListeners();
         displayInitialList();
     }
 
@@ -182,14 +183,24 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Initialises a listener for each list panel on the left of the window
      */
-    private void initListenersForResourceListPanels() {
-        exerciseListPanel.setOnItemSelectListener(getListener());
-        regimeListPanel.setOnItemSelectListener(getListener());
-        scheduleListPanel.setOnItemSelectListener(getListener());
-        suggestionListPanel.setOnItemSelectListener(getListener());
+    private void initListeners() {
+        exerciseListPanel.setOnItemSelectListener(getOnItemSelectListener());
+        regimeListPanel.setOnItemSelectListener(getOnItemSelectListener());
+        scheduleListPanel.setOnItemSelectListener(getOnItemSelectListener());
+        suggestionListPanel.setOnItemSelectListener(getOnItemSelectListener());
+        resolveWindow.setOnResolveSuccessListener(getResolveSuccessListener());
+
+        logger.info("Listeners for main window set");
     }
 
-    private ResourceListPanel.OnItemSelectListener getListener() {
+    private ResolveWindow.OnResolveSuccessListener getResolveSuccessListener() {
+        return result -> {
+            updateResourceListTab(result, -1);
+            resultDisplay.setFeedbackToUser(result.getFeedbackToUser());
+        };
+    }
+
+    private ResourceListPanel.OnItemSelectListener getOnItemSelectListener() {
         return new ResourceListPanel.OnItemSelectListener() {
             @Override
             public void onItemSelect(Resource selected) {
@@ -319,7 +330,6 @@ public class MainWindow extends UiPart<Stage> {
     private void handleSelectResource(CommandResult commandResult) {
         Index selectedIndex = commandResult.getSelectedIndex().get();
         updateResourceListTab(commandResult, selectedIndex.getZeroBased());
-
     }
 
     void show() {
@@ -344,24 +354,25 @@ public class MainWindow extends UiPart<Stage> {
      * Checks if a the resource list has to change based on the {@code CommandResult}
      */
     private void updateResourceListTab(CommandResult commandResult, int index) {
+        logger.info("Changing resource list panel to show " + commandResult.getShowListResourceType());
         switch (commandResult.getShowListResourceType()) {
         case NULL:
             //no change to GUI
             return;
         case EXERCISE:
-            handleShowExerciseList();
+            handleShowResourceList(exerciseListTabPlaceholder);
             exerciseListPanel.selectGivenIndex(index);
             return;
         case REGIME:
-            handleShowRegimeList();
+            handleShowResourceList(regimeListTabPlaceholder);
             regimeListPanel.selectGivenIndex(index);
             return;
         case SCHEDULE:
-            handleShowScheduleList();
+            handleShowResourceList(scheduleListTabPlaceholder);
             scheduleListPanel.selectGivenIndex(index);
             return;
         case SUGGESTION:
-            handleShowSuggestionList();
+            handleShowResourceList(suggestionListTabPlaceholder);
             suggestionListPanel.selectGivenIndex(index);
             return;
         default:
@@ -374,43 +385,13 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Updates the GUI to show the exercise list tab and refresh info display panel if the tab did change.
+     * Updates the GUI to show the resource list tab and refresh info display panel if the tab did change.
      */
-    private void handleShowExerciseList() {
-        if (!(isResourceListPanelShown(exerciseListTabPlaceholder))) {
+    private void handleShowResourceList(Tab resourceListTabPlaceholder) {
+        if (!(isResourceListPanelShown(resourceListTabPlaceholder))) {
             infoDisplayPanel.showDefaultMessage();
         }
-        resourceListPanelPlaceholder.getSelectionModel().select(exerciseListTabPlaceholder);
-    }
-
-    /**
-     * Updates the GUI to show the regime list tab and refresh info display panel if the tab did change.
-     */
-    private void handleShowRegimeList() {
-        if (!(isResourceListPanelShown(regimeListTabPlaceholder))) {
-            infoDisplayPanel.showDefaultMessage();
-        }
-        resourceListPanelPlaceholder.getSelectionModel().select(regimeListTabPlaceholder);
-    }
-
-    /**
-     * Updates the GUI to show the schedule list tab and refresh info display panel if the tab did change.
-     */
-    private void handleShowScheduleList() {
-        if (!(isResourceListPanelShown(scheduleListTabPlaceholder))) {
-            infoDisplayPanel.showDefaultMessage();
-        }
-        resourceListPanelPlaceholder.getSelectionModel().select(scheduleListTabPlaceholder);
-    }
-
-    /**
-     * Updates the GUI to show the suggestion list tab and refresh info display panel if the tab did change.
-     */
-    private void handleShowSuggestionList() {
-        if (!(isResourceListPanelShown(suggestionListTabPlaceholder))) {
-            infoDisplayPanel.showDefaultMessage();
-        }
-        resourceListPanelPlaceholder.getSelectionModel().select(suggestionListTabPlaceholder);
+        resourceListPanelPlaceholder.getSelectionModel().select(resourceListTabPlaceholder);
     }
 
     private boolean isResourceListPanelShown(Tab resourceListPlaceholder) {

@@ -15,10 +15,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.logic.parser.Prefix;
+import seedu.exercise.model.property.custom.CustomProperty;
 
 /**
  * Helps to keep track of all the existing prefixes and full names for both default and custom properties.
  * It also helps to keep track of all the existing custom properties that have been defined by the user.
+ *
+ * This solution was partly inspired by
+ * https://github.com/yunpengn/main/blob/master/src/main/java/seedu/address/model/property/PropertyManager.java.
  */
 public class PropertyBook {
     public static final String MESSAGE_DUPLICATE_NAME_OR_PREFIX = "The full name or the prefix of the custom"
@@ -83,7 +87,7 @@ public class PropertyBook {
     }
 
     /**
-     * Adds the newly defined custom property into the manager.
+     * Adds the newly defined custom property into the PropertyBook.
      */
     public void addCustomProperty(CustomProperty customProperty) {
         Prefix newPrefix = customProperty.getPrefix();
@@ -119,21 +123,21 @@ public class PropertyBook {
     }
 
     /**
-     * Checks if the prefix has already been used by a property.
+     * Returns true if the prefix has already been used by a property.
      */
     public boolean isPrefixUsed(Prefix prefix) {
         return customPrefixes.contains(prefix) || defaultPrefixes.contains(prefix);
     }
 
     /**
-     * Checks if the full name has already been used by a property.
+     * Returns true if the full name has already been used by a property.
      */
     public boolean isFullNameUsed(String fullName) {
         return customFullNames.contains(fullName) || defaultFullNames.contains(fullName);
     }
 
     /**
-     * Checks if the full name is used by a custom property.
+     * Returns true if the full name is used by a custom property.
      */
     public boolean isFullNameUsedByCustomProperty(String fullName) {
         return customFullNames.contains(fullName);

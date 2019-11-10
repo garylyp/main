@@ -33,6 +33,7 @@ public class ResolveWindow extends UiPart<Stage> {
            + ResolveCommand.MESSAGE_USAGE;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
+    private OnResolveSuccessListener resolveSuccessListener;
 
     private Logic logic;
 
@@ -98,6 +99,10 @@ public class ResolveWindow extends UiPart<Stage> {
     }
 
     public void setLeftRightPanel() {
+        logger.info("Resolve window showing scheduled "
+                + logic.getConflict().getScheduledName()
+                + ", conflicting "
+                + logic.getConflict().getConflictedName());
         resultDisplay.setFeedbackToUser(INITIAL_HELP_MESSAGE);
         leftRightPanel.setLeftPanel(logic.getConflict().getScheduledRegime());
         leftRightPanel.setRightPanel(logic.getConflict().getConflictingRegime());
@@ -162,7 +167,7 @@ public class ResolveWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (!commandResult.isShowResolve()) {
-                mainWindowDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                informResolveSuccessListener(commandResult);
                 this.hideAndClearPanels();
             }
 
@@ -172,5 +177,22 @@ public class ResolveWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    void setOnResolveSuccessListener(OnResolveSuccessListener listener) {
+        this.resolveSuccessListener = listener;
+    }
+
+    private void informResolveSuccessListener(CommandResult commandResult) {
+        if (resolveSuccessListener != null) {
+            resolveSuccessListener.onResolveSuccess(commandResult);
+        }
+    }
+
+    /**
+     * Informs interested classes of scheduling conflict resolution being successful.
+     */
+    interface OnResolveSuccessListener {
+        void onResolveSuccess(CommandResult result);
     }
 }

@@ -39,7 +39,7 @@ at a particular date. However, this difficulty was remedied as described in *Maj
 ** Justification: This feature will allow users the flexibility to select which exercises they wish to do from the conflicting scheduled regimes. It also allows users to store the resolved regime and use it in the future.
 ** Highlights: This enhancement works well with *major enhancement 1* as there is a direct link between the two. The implementation of this feature was particularly challenging because multiple resources had to be kept track of. Also, there was a need to prevent users from proceeding on with normal usage of the program until they resolve the scheduling conflict. The aforementioned requirement was technically challenging and multiple facets had to be considered in the implementation of the feature.
 
-* *Minor enhancement 1*: Added the display panel in the center of our UI to display more information on the selected resource on the left panel of our UI.
+* *Minor enhancement 1*: Added the display panel in the center of our UI to display more information of the selected resource.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=t-cheepeng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]]
 
@@ -50,7 +50,7 @@ at a particular date. However, this difficulty was remedied as described in *Maj
 *** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
 ** Testing:
 *** Refactored large portions of testing codebase for fellow developers: https://github.com/AY1920S1-CS2103T-T09-2/main/pull/120[#120]
-*** Wrote tests for existing and new features to increase code coverage (Pull requests: https://github.com/AY1920S1-CS2103T-T09-2/main/pull/119[#119], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/126[#126])
+*** Wrote tests for existing and new features to increase code coverage (Pull requests: https://github.com/AY1920S1-CS2103T-T09-2/main/pull/119[#119], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/126[#126], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/126[#234])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T09-2/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/90[#90], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/102[#102]
 

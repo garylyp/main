@@ -96,26 +96,9 @@ public class SampleDataUtil {
     public static Schedule[] getSampleSchedules() {
         Regime[] sampleRegimes = getSampleRegimes();
         return new Schedule[]{
-            new Schedule(sampleRegimes[0], new Date("12/11/2019")),
-            new Schedule(sampleRegimes[1], new Date("13/11/2019")),
-            new Schedule(sampleRegimes[2], new Date("14/11/2019"))
-        };
-    }
-
-    public static Exercise[] getBasicExercises() {
-        return new Exercise[]{
-            new Exercise(new Name("Push Ups"), new Date("07/11/2019"), new Calories("80"),
-                new Quantity("100"), new Unit("counts"),
-                getMuscleSet("Chest", "Triceps"), new TreeMap<>()),
-            new Exercise(new Name("Sit ups"), new Date("07/11/2019"), new Calories("50"),
-                new Quantity("100"), new Unit("counts"),
-                getMuscleSet("Abs"), new TreeMap<>()),
-            new Exercise(new Name("Squats"), new Date("07/11/2019"), new Calories("100"),
-                new Quantity("100"), new Unit("counts"),
-                getMuscleSet("Legs"), new TreeMap<>()),
-            new Exercise(new Name("Run"), new Date("07/11/2019"), new Calories("300"),
-               new Quantity("10"), new Unit("km"),
-               getMuscleSet("Legs", "Cardio"), new TreeMap<>())
+            new Schedule(sampleRegimes[0], new Date("12/12/2019")),
+            new Schedule(sampleRegimes[1], new Date("13/12/2019")),
+            new Schedule(sampleRegimes[2], new Date("14/12/2019"))
         };
     }
 

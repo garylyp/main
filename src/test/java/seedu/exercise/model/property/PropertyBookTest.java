@@ -19,8 +19,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.logic.parser.Prefix;
+import seedu.exercise.model.property.custom.CustomProperty;
 import seedu.exercise.testutil.builder.CustomPropertyBuilder;
 
+//@@author weihaw08
 public class PropertyBookTest {
 
     private final Set<CustomProperty> customPropertySet = Set.of(RATING);
@@ -99,7 +101,6 @@ public class PropertyBookTest {
         assertTrue(testBook.hasClashingPrefixOrName(samePrefix));
 
         // Different name and prefix -> false
-
         assertFalse(testBook.hasClashingPrefixOrName(END_DATE));
     }
 }
