@@ -208,21 +208,21 @@ and an error message will be displayed to indicate there is no undoable or redoa
 The following two Sequence Diagrams show a sample flow of the execution when an `EditCommand`, which is an
 `UndoableCommand`, has been executed and subsequently undone.
 
-The first diagram (Figure 9) describes the process of storing an `EditEvent` to `EventHistory` during the execution of the
+The first diagram below describes the process of storing an `EditEvent` to `EventHistory` during the execution of the
 `EditCommand`. The `EventPayload` is only initialized when the `EditCommand` is executed. The `EventPayload` is
 subsequently used for the initialization of the `EditEvent`.
 
 .The process of storing an EditEvent to EventHistory
 image::UndoableCommandSequenceDiagram.png[]
 
-The second diagram (Figure 10) describes the process of undoing the executed `EditCommand`  using the `UndoCommand`.
+The second diagram below describes the process of undoing the executed `EditCommand`  using the `UndoCommand`.
 When the `UndoCommand` is executed, the `EventHistory` calls the `undo` method of the next `Event` in the undo stack
 (i.e. the `EditEvent`).
 
 .The process of undoing the EditCommand
 image::UndoSequenceDiagram.png[]
 
-Given below is a Class Diagram (Figure 11) to show the associations between Event, Command and Model. It is specifically designed
+Given below is a Class Diagram to show the associations between Event, Command and Model. It is specifically designed
 such that only objects that implement the `Event` and `Command` interface will need to handle the `model` class.
 [NOTE]
 The only commands that implements the `UndoableCommand` are `AddCommand`, `DeleteCommand`, `EditCommand`,
@@ -231,7 +231,7 @@ The only commands that implements the `UndoableCommand` are `AddCommand`, `Delet
 .The associations between Event, Command and Model
 image::EventClassDiagram.png[]
 
-The following Activity Diagram (Figure 12) summarizes what happens when a user enters undoable commands,
+The following Activity Diagram summarizes what happens when a user enters undoable commands,
 the undo command and the redo command.
 
 .The workflow when a user enters an undoable command and performs undo/redo
