@@ -225,6 +225,7 @@ image::UndoSequenceDiagram.png[align="center"]
 
 Given below is a Class Diagram to show the associations between Event, Command and Model. It is specifically designed
 such that only objects that implement the `Event` and `Command` interface will need to handle the `model` class.
+[[undoablecommands]]
 [NOTE]
 The only commands that implements the `UndoableCommand` are `AddCommand`, `DeleteCommand`, `EditCommand`,
 `ClearCommand`, `ScheduleCommand` and `ResolveCommand`. They each stores an `EventPayload` instance.
@@ -1119,6 +1120,43 @@ exercises from database that are tagged `Chest` are also displayed.
 .. Test case: `custom rm/Date`
    Expected: No custom property is removed. An error message informing the user that `Date` is not used by
    an custom property will be shown.
+
+=== Undo / Redo
+. Undoing and redoing an add regime event
+
+.. Prerequisites: The regime list must not contain a regime with the name "Level 4". There must be at least two
+   exercises in the exercise list.
+.. Test case: +
+    `add t/regime n/Level 4 i/1 i/2` +
+    `undo` +
+    `redo` +
+    Expected: A new regime called "Level 4" containing two exercises is added to the regime list.
+    Upon calling `undo`, the regime "Level 4" is deleted from the regime list.
+    Upon calling `redo`, the regime "Level 4" is added to the regime list again.
+
+. Undoing and redoing a schedule complete event
+
+.. Prerequisites: There must be at least one scheduled item in the schedule list.
+.. Test case: +
+    `schedule i/1` +
+    `undo` +
+    `redo` +
+    Expected: The schedule at index 1 of the schedule list should be marked as complete. It will be removed
+    from the the schedule list and all exercises in it will be added to the exercise list.
+    Upon calling `undo`, the schedule appears in the schedule list again and the exercises are removed
+    from the exercise list.
+    Upon calling `redo`, the schedule will be removed and its exercises will be added back to the exercise list.
+
+. Attempting to redo after executing a new <<undoablecommands, Undoable Command>>
+
+.. Test case: +
+    `add t/exercise n/Stair Climb c/400 q/50 u/flights` +
+    `undo` +
+    `add t/exercise n/Simple Walk c/100 q/50 u/steps` +
+    `redo` +
+    Expected: Upon calling `redo`, an error message should be displayed saying that there are
+    no commands to redo. Even though `undo` has been called once, the possible redo stack
+    will be cleared once the user enters a new undoable command after `undo`.
 
 === Saving data
 
