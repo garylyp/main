@@ -59,7 +59,7 @@ include::../UserGuide.adoc[tag=redo]
 
 include::../UserGuide.adoc[tag=undoredoexample]
 
-**Step 4**: `redo` +
+**Step 3**: `redo` +
 Redoes the deletion of `Hiking` is deleted from the regime `Level 3` +
 
 image::DeleteExerciseFromRegimeRedoOutcome.png[]

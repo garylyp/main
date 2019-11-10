@@ -237,7 +237,7 @@ The following Activity Diagram summarizes what happens when a user enters undoab
 the undo command and the redo command.
 
 .The workflow when a user enters an undoable command and performs undo/redo
-image::CommitActivityDiagram.png[align="center", width=85%, scaledwidth=15cm]
+image::CommitActivityDiagram.png[align="center"]
 
 ==== Design Considerations
 ===== Aspect: How undo & redo executes

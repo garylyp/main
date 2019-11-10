@@ -50,39 +50,39 @@ public class SampleDataUtil {
 
     public static Regime[] getSampleRegimes() {
         SortedUniqueResourceList<Exercise> list1 = new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
-        list1.add(new Exercise(new Name("Rope Skipping"), new Date("14/11/2019"), new Calories("330"),
+        list1.add(new Exercise(new Name("Rope Skipping"), new Date("17/11/2019"), new Calories("330"),
             new Quantity("10"), new Unit("counts"),
             getMuscleSet("Legs"), new TreeMap<>()));
-        list1.add(new Exercise(new Name("Bench Press"), new Date("14/11/2019"), new Calories("222"),
+        list1.add(new Exercise(new Name("Bench Press"), new Date("17/11/2019"), new Calories("222"),
             new Quantity("30"), new Unit("counts"),
             getMuscleSet("Triceps"), new TreeMap<>()));
 
 
         SortedUniqueResourceList<Exercise> list2 = new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
-        list2.add(new Exercise(new Name("Running"), new Date("16/11/2019"), new Calories("127"),
+        list2.add(new Exercise(new Name("Running"), new Date("20/11/2019"), new Calories("127"),
             new Quantity("2.4"), new Unit("km"),
             getMuscleSet("Legs"), new TreeMap<>()));
-        list2.add(new Exercise(new Name("Bench Press"), new Date("16/11/2019"), new Calories("222"),
+        list2.add(new Exercise(new Name("Bench Press"), new Date("20/11/2019"), new Calories("222"),
             new Quantity("30"), new Unit("counts"),
             getMuscleSet("Triceps"), new TreeMap<>()));
-        list2.add(new Exercise(new Name("Swimming"), new Date("16/11/2019"), new Calories("354"),
+        list2.add(new Exercise(new Name("Swimming"), new Date("20/11/2019"), new Calories("354"),
             new Quantity("10"), new Unit("laps"),
             getMuscleSet("Calves"), new TreeMap<>()));
 
         SortedUniqueResourceList<Exercise> list3 = new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
-        list3.add(new Exercise(new Name("Rope Skipping"), new Date("19/11/2019"), new Calories("230"),
+        list3.add(new Exercise(new Name("Rope Skipping"), new Date("22/11/2019"), new Calories("230"),
             new Quantity("10"), new Unit("counts"),
             getMuscleSet("Legs"), new TreeMap<>()));
-        list3.add(new Exercise(new Name("Swimming"), new Date("19/11/2019"), new Calories("254"),
+        list3.add(new Exercise(new Name("Swimming"), new Date("22/11/2019"), new Calories("254"),
             new Quantity("10"), new Unit("laps"),
             getMuscleSet("Calves"), new TreeMap<>()));
-        list3.add(new Exercise(new Name("Bench Press"), new Date("19/11/2019"), new Calories("122"),
+        list3.add(new Exercise(new Name("Bench Press"), new Date("22/11/2019"), new Calories("122"),
             new Quantity("30"), new Unit("counts"),
             getMuscleSet("Triceps"), new TreeMap<>()));
-        list3.add(new Exercise(new Name("Cycling"), new Date("19/11/2019"), new Calories("184"),
+        list3.add(new Exercise(new Name("Cycling"), new Date("22/11/2019"), new Calories("184"),
             new Quantity("5"), new Unit("km"),
             getMuscleSet("Legs"), new TreeMap<>()));
-        list3.add(new Exercise(new Name("Strength Training"), new Date("19/11/2019"), new Calories("241"),
+        list3.add(new Exercise(new Name("Strength Training"), new Date("22/11/2019"), new Calories("241"),
             new Quantity("20"), new Unit("counts"),
             getMuscleSet("Chest"), new TreeMap<>()));
 
@@ -96,9 +96,9 @@ public class SampleDataUtil {
     public static Schedule[] getSampleSchedules() {
         Regime[] sampleRegimes = getSampleRegimes();
         return new Schedule[]{
-            new Schedule(sampleRegimes[0], new Date("14/11/2019")),
-            new Schedule(sampleRegimes[1], new Date("16/11/2019")),
-            new Schedule(sampleRegimes[2], new Date("19/11/2019"))
+            new Schedule(sampleRegimes[0], new Date("17/11/2019")),
+            new Schedule(sampleRegimes[1], new Date("20/11/2019")),
+            new Schedule(sampleRegimes[2], new Date("22/11/2019"))
         };
     }
 
