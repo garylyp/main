@@ -156,7 +156,9 @@ Classes used by multiple components are in the `seedu.exercise.commons` package.
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
 // tag::undoredo[]
+
 === Undo/Redo feature
 
 ==== Implementation
@@ -285,7 +287,9 @@ and stored.
 ** Cons:
 *** Difficult to monitor multiple resource books (e.g. Regime books and Exercise books) as they all
 manage different types of resources that can be altered by commands.
+
 // end::undoredo[]
+
 ==== Design Patterns
 
 The Undo/Redo feature implementation is based on the Singleton, Command, and Factory design patterns
