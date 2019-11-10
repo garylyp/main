@@ -1159,7 +1159,7 @@ exercises from database that are tagged `Chest` are also displayed.
     `add t/exercise n/Simple Walk c/100 q/50 u/steps` +
     `redo` +
     Expected: Upon calling `redo`, an error message should be displayed saying that there are
-    no commands to redo. Even though `undo` has been called once, the possible redo stack
+    no commands to redo. Even though `undo` has been called once, the redo stack
     will be cleared once the user enters a new undoable command after `undo`.
 
 === Saving data
